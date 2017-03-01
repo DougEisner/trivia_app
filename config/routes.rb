@@ -1,11 +1,9 @@
 Rails.application.routes.draw do
-<<<<<<< HEAD
+
   get 'questions/index'
 
-=======
   root 'home#index'
 
   mount_devise_token_auth_for 'User', at: 'auth'
->>>>>>> backend
-  root 'application#home'
+  # root 'application#home'
 end
