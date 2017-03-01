@@ -11,5 +11,6 @@ module TriviaApp
     config.generators do |g|
       g.javascript_engine :js
     end
+    config.assets.paths << Rails.root.join('vendor', 'assets', 'bower_components')
   end
 end
