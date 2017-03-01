@@ -6,8 +6,8 @@
 
     $stateProvider.state('home', {
       url: '/home',
-      templateUrl: 'main/_home.html',
-      controller: 'MainController'
+      templateUrl: '_home.html', // can move to template folder
+      controller: 'LoginController as login' // views/ home /index.html.erb <ui-view></ui-view>
     });
   });
 
