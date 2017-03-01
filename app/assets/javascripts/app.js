@@ -6,8 +6,8 @@
 
     $stateProvider.state('home', { // ParentState, abstract true, state. ParentState.index (move ui-view to index folder)
       url: '/home',
-      templateUrl: 'main/_home.html', // can move to template folder
-      controller: 'MainController' // views/ home /index.html.erb <ui-view></ui-view>
+      templateUrl: '_home.html', // can move to template folder
+      controller: 'LoginController as login' // views/ home /index.html.erb <ui-view></ui-view>
     });
   });
 
