@@ -9,11 +9,17 @@
 //
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
+<<<<<<< Updated upstream
 //
+=======
+>>>>>>> Stashed changes
 
 //= require angular
 //= require angular-ui-router
 //= require angular-rails-templates
+<<<<<<< Updated upstream
 //= require angular-ui-router/release/angular-ui-router
 //= require angular-local-storage/dist/angular-local-storage
+=======
+>>>>>>> Stashed changes
 //= require_tree .
