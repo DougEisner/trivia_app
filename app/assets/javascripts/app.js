@@ -4,11 +4,16 @@
         ng.module('TriviaApp').config(function($stateProvider, $urlRouterProvider) {
             $urlRouterProvider.otherwise('home');
 
-            $stateProvider.state('home', {
-                url: '/home',
-                templateUrl: '_home.html', // can move to template folder
-                controller: 'LoginController as login' // views/ home /index.html.erb <ui-view></ui-view>
+            $stateProvider.state('TriviaParent', { // default home url
+                url: '/',
+                abstract: true,
+                template: '<ui-view></ui-view>',
+            }).state('TriviaParent.index', {
+                url: '',
+                templateUrl: '_home.html',
+                controller: "LoginController as login"
             });
+        });
 
 
         })(angular);
