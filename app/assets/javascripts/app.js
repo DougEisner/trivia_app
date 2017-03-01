@@ -9,7 +9,7 @@
                 abstract: true,
                 template: '<ui-view></ui-view>',
             }).state('TriviaParent.index', {
-                url: '',
+                url: '/home',
                 templateUrl: '_home.html',
                 controller: "LoginController as login"
             });
