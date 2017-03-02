@@ -2,7 +2,7 @@ require 'json'
 
 class ScoresController < ApplicationController
   def index
-    @scores = Score.all
+    @scores = Score.all.limit(10)
     render json: @scores
   end
 
@@ -10,13 +10,14 @@ class ScoresController < ApplicationController
     @score = Score.new(score_params)
 
     if @score.save
-      render json: @score, status: :created, location: @score
+      render json: @score, status: :created
     else
       render json: @score.errors, status: :unprocessable_entity
     end
   end
 
-  def score_params
-      params.require(:score).permit(:score, :user_id)
+  private
+    def score_params
+      params.require(:score).permit(:user_id, :game_score)
     end
 end

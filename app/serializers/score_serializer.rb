@@ -1,5 +1,5 @@
 class ScoreSerializer < ActiveModel::Serializer
-  attributes :nickname, :image, :scores
+  attributes :game_score # :nickname, :image
 
   has_one :user
 end
