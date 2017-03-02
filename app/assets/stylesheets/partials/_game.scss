@@ -16,41 +16,64 @@
     align-items: center;
     background: linear-gradient(135deg, rgba(250, 198, 149, 1) 0%, rgba(245, 171, 102, 1) 47%, rgba(239, 141, 49, 1) 100%);
     border-radius: 10px;
-    display: flex;
     flex-direction: column;
     height: 80%;
-    justify-content: space-around;
     width: 80%;
 }
 
+.main-game-section {
+    align-items: center;
+    display: flex;
+    flex-flow: column;
+    height: 90%;
+    justify-content: space-around;
+    width: 100%;
+}
+
 .trivia-question-section {
-    /*display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    width: 90%;*/
+    display: flex;
+    align-items: center;
+    text-align: center;
+    flex-flow: column;
+    font-family: 'Baloo';
+    font-size: 30px;
+    width: 90%;
+}
+
+.trivia-question {
+    width: 100%;
 }
 
 .trivia-answer-section {
     align-items: center;
     display: flex;
     flex-direction: row;
-    justify-content: center;
-    width: 70%;
-}
-
-.trivia-question {
-    font-family: 'Baloo';
-    font-size: 30px;
-    margin-top: 100px;
-}
-
-.trivia-answer {
     font-family: 'Baloo';
     font-size: 15px;
+    justify-content: center;
+    width: 90%;
 }
 
 .radio {
     width: 30px;
     height: 30px;
     position: relative;
+}
+
+.page-buttons {
+    display: flex;
+}
+
+.bummer {
+    border-radius: 10px;
+    background: linear-gradient(135deg, rgba(0, 183, 234, 1) 0%, rgba(0, 158, 195, 1) 100%);
+    font-family: 'Baloo';
+    font-size: 20px;
+    width: 100%;
+}
+
+.question-counter {
+    float: right;
+    font-family: 'Baloo';
+    font-size: 25px;
 }
