@@ -2,15 +2,15 @@
         ng.module('TriviaApp', ['ui.router', 'templates', 'LocalStorageModule']);
 
         ng.module('TriviaApp').config(function($stateProvider, $urlRouterProvider) {
-            $urlRouterProvider.otherwise('home');
+            $urlRouterProvider.otherwise('/');
 
             $stateProvider.state('TriviaParent', { // default home url
                 url: '/',
                 abstract: true,
                 template: '<ui-view></ui-view>',
-            }).state('TriviaParent.index', {
-                url: '/home',
-                templateUrl: '_home.html',
+            }).state('TriviaParent.login', {
+                url: 'home',
+                templateUrl: 'home.html',
                 controller: "LoginController as login"
             });
         });
