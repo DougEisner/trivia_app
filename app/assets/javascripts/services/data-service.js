@@ -14,7 +14,7 @@ let currentUser = {}
             return $http({
                 method: 'POST',
                 url: url,
-                dataType: "json",
+                dataType: "jsonp",
                 headers: {
                     "content-type": "application/json;charset=utf-8"
                 },
