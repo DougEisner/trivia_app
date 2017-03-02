@@ -37,7 +37,7 @@
     };
 
     // GAME LOGIC
-
+    //
     // this.allQuestions = []; // stores all questions
     // this.correctCount = 0; // count for correct answers
     // this.incorrectCount = 0; // count for incorrect answers
@@ -47,8 +47,7 @@
     //     $q.when(DataRequestService.get('')).then((response) => {
     //         console.log(response);
     //         this.allQuestions = response.data; // set the response to the allQuestions Array?
-    //         getAnswer(response.data); /// maybe this instead?
-    //         checkAnswer(response.data);
+    //         getAnswer(this.allQuestions.whatever); /// maybe this instead?
     //         console.log(this.allQuestions);
     //     }).catch((error) => {
     //         console.log(error);
@@ -66,7 +65,7 @@
     //
     // };
     //
-    // this.checkAnswer = function(response) {
+    // this.checkAnswer = function() {
     //
     //     for (let i = 0; i < allQuestions.length - 1; i++) { // don't know if I need - 1
     //         // if user answer (radio button selection) ==== response.answer then  increment the correctCount & return true
@@ -81,10 +80,10 @@
     // };
     //
     // this.processStats = function() { // ng-submit = processStats();
-    //     // iterate over all questions array and print results
-    // this.incorrect = '';
-    // this.question = '';
-    // this.correct = '';
+    //     // iterate over all questions array and print results // You scored (correct)/ out of (count)
+    //     this.incorrect = '';
+    //     this.question = '';
+    //     this.correct = '';
     //
     //     for (let i = 0; i < allQuestions.length - 1; i++ ) { // don't know if need - 1
     //         this.question = this.AllQuestions.newAnswer.question
@@ -92,7 +91,7 @@
     //         this.incorrectTotal = incorrectCount;
     //     }
     //     $q.when(DataRequestService.post('')).then((response) => {
-    //         // send backend  correct and incorrect count
+    //         // send backend  correct
     //         // console.log(response);
     //         // this.allQuestions = response.data; // set the response to the allQuestions Array?
     //         // getAnswer(response.data); /// maybe this instead?
@@ -106,7 +105,7 @@
     //     });
     //     // state.go
     // }
-
+    //
     // ng-show submit button if "counter === 10"
     // ng-hide next button if "counter === 10 " // if time over weekend look into doing this with jquery
 
