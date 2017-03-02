@@ -16,14 +16,15 @@
             }).state('TriviaParent.profile', {
                 url: 'profile',
                 templateUrl: 'userprofile.html',
-                // controller: "LoginController as login"
+                controller: "ProfileController as profile"
             }).state('TriviaParent.game', {
                 url: 'game',
                 templateUrl: 'game.html',
-                //controller: "GameController as game"
+                controller: "GameController as game"
             }).state('TriviaParent.leader', {
                 url: 'leaderboard',
                 templateUrl: 'leader.html',
+                controller: "LeaderController as leader"
             });
         });
 
