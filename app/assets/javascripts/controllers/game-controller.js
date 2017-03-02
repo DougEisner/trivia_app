@@ -24,7 +24,7 @@
       //
       //     this.newAnswer = {};
       //     newAnswer.question = ''; // response.question
-      //     newAnswer.answer = ''; // response.answer / ng-model = answer? for radio button
+      //     newAnswer.answer = ''; // response.answer / ng-model = answer? for radio button or $("input[type='radio'][name='rate']:checked").val();
       //     newAnswer.correct = checkAnswer();
       //
       //     allQuestions.push(newAnswer); // push newAnswer obj into allQuestions array
@@ -36,6 +36,8 @@
       //     for (let i = 0; i < allQuestions.length - 1; i++) { // don't know if I need - 1
       //         // if user answer (radio button selection) ==== response.answer then  increment the correctCount & return true
       //         //  else increment incorrect count and return false
+
+                    // $("input[type='radio'][name='rate']:checked").val();
       //
       // };
       //
