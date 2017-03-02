@@ -12,7 +12,13 @@
         function postData(url) {
             return $http({
                 method: 'POST',
-                url: url
+                url: url,
+                headers: {
+                    "content-type": "application/json;charset=utf-8"
+                },
+                data: JSON.stringify({
+
+                })
             });
         }
 
@@ -23,10 +29,21 @@
             });
         }
 
+        function deleteData(url) {
+            return $http({
+                method: 'DELETE',
+                url: url,
+                headers: {
+                    "content-type": "application/json;charset=utf-8"
+                }
+            });
+        }
+
         return {
             get: getData,
             post: postData,
-            put: putData
+            put: putData,
+            delete: deleteData
         };
     }
 

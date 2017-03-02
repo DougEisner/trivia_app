@@ -1,1 +1,29 @@
-<ui-view></ui-view>
+<doctype html>
+<html lang="en" ng-app="TriviaApp">
+    <head>
+        <meta charset="UTF-8">
+        <meta content="width=device-width, initial-scale=1" name="viewport">
+        <title>Trivia App</title>
+    </head>
+
+    <body>
+
+        <header class="header" role="banner">
+                <h1>Trivia Quizz</h1>
+            <nav>
+                <ul>
+                    <li class="active"><a ui-sref="TriviaParent.profile">Profile</a>
+                    </li>
+                    <li><a ui-sref="TriviaParent.game">Game</a>
+                    </li>
+                    <li><a ui-sref="TriviaParent.leader">Leaderboard</a>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            <ui-view></ui-view>
+        </main>
+    </body>
+
+</html>
