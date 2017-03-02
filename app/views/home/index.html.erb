@@ -6,7 +6,7 @@
         <title>Trivia App</title>
     </head>
 
-    <body>
+    <body ng-controller="LoginController as login">
 
         <header class="header" role="banner">
                 <h1>Trivia Quizz</h1>
@@ -18,6 +18,7 @@
                     </li>
                     <li><a ui-sref="TriviaParent.leader">Leaderboard</a>
                     </li>
+                    <li><a ui-sref="TriviaParent.login">Logout</a>
                 </ul>
             </nav>
         </header>
