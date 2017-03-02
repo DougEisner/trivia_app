@@ -25,6 +25,9 @@
                 url: 'leaderboard',
                 templateUrl: 'leader.html',
                 controller: "LeaderController as leader"
+            }).state('TriviaParent.logout', {
+                url: 'logout',
+                templateUrl: 'login.html',
             });
         });
 

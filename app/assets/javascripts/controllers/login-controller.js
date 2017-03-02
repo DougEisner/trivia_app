@@ -18,6 +18,10 @@
     // SEND DATA OF USERINFO TO POST REQUEST
 
 
+    // $('.toggle-link').on('click', function() {
+    //     console.log('in');
+    // });
+
 
       $scope.inputInfo = { // inputinfo obj
           userName: '',
@@ -26,10 +30,10 @@
           imageUrl: ''
       };
 
-      // this.logout = function() {
+      // this.logout = function() { // DELETE REQUEST
       //     this.inputInfo.userName = null;
       //     this.inputInfo.passWord = null;
-      //     $location.path('/');
+      //     $location.path('/'); $state.go('TriviaParent.login'); http://localhost:3000/#!/login
       // };
 
       $scope.submit = function() { // submit function
