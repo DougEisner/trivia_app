@@ -1,8 +1,22 @@
 (function(ng) {
-  ng.module('TriviaApp').controller('LoginController', function($state, localStorageService, $scope) {
+  ng.module('TriviaApp').controller('LoginController', function($state, localStorageService, $scope, DataRequestService, $q) {
       console.log('in c');
 
       $scope.userInfo = []; // store userInfo array
+
+
+
+    //   $q.when(DataRequestService.post('')).then((response) => {
+    //          console.log(response);
+    //          this.allQuestions = response.data; // set the response to the allQuestions Array?
+    //          getAnswer(this.allQuestions.whatever); /// maybe this instead?
+    //          console.log(this.allQuestions);
+    //      }).catch((error) => {
+    //          console.log(error);
+    //      });
+
+    // SEND DATA OF USERINFO TO POST REQUEST
+
 
 
       $scope.inputInfo = { // inputinfo obj

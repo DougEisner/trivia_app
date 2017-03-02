@@ -1,0 +1,46 @@
+Started GET "/questions/index" for ::1 at 2017-03-02 13:40:32 -0500
+  [1m[36mActiveRecord::SchemaMigration Load (24.4ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by QuestionsController#index as HTML
+Completed 200 OK in 579ms (Views: 103.9ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/questions/index" for ::1 at 2017-03-02 13:40:38 -0500
+Processing by QuestionsController#index as HTML
+Completed 200 OK in 710ms (Views: 94.2ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/questions/index" for ::1 at 2017-03-02 13:40:49 -0500
+Processing by QuestionsController#index as HTML
+Completed 200 OK in 289ms (Views: 93.2ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for ::1 at 2017-03-02 13:43:23 -0500
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by HomeController#index as HTML
+  Rendering home/index.html.erb within layouts/application
+  Rendered home/index.html.erb within layouts/application (1.2ms)
+Completed 200 OK in 990ms (Views: 985.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/questions/index" for ::1 at 2017-03-02 13:44:44 -0500
+Processing by QuestionsController#index as HTML
+Completed 200 OK in 354ms (Views: 139.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/questions/index" for ::1 at 2017-03-02 13:46:05 -0500
+Processing by QuestionsController#index as HTML
+Completed 200 OK in 283ms (Views: 89.6ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/questions/index" for ::1 at 2017-03-02 13:46:08 -0500
+Processing by QuestionsController#index as HTML
+Completed 200 OK in 430ms (Views: 160.6ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for ::1 at 2017-03-02 14:56:25 -0500
+Processing by HomeController#index as HTML
+  Rendering home/index.html.erb within layouts/application
+  Rendered home/index.html.erb within layouts/application (0.4ms)
+Completed 200 OK in 30ms (Views: 27.8ms | ActiveRecord: 0.0ms)
+
+
