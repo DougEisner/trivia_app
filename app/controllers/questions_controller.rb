@@ -6,7 +6,7 @@ class QuestionsController < ApplicationController
   def index
     level = params[:level]
     level = 'hard'
-    response = HTTParty.get("https://www.opentdb.com/api.php?amount=50&difficulty=#{level}&type=multiple")
+    response = HTTParty.get("https://www.opentdb.com/api.php?amount=10&difficulty=#{level}&type=multiple")
 
     response = clean_output(response.body)
 
