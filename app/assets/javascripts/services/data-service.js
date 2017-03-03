@@ -14,11 +14,26 @@ let currentUser = {}
             return $http({
                 method: 'POST',
                 url: url,
-                dataType: "jsonp",
+                dataType: "json",
                 headers: {
                     "content-type": "application/json;charset=utf-8"
                 },
                 data: dataObj
+            });
+        }
+
+        function loginPost(url, dataObj) {
+            return $http({
+                method: 'POST',
+                url: url,
+                dataType: "json",
+                headers: {
+                    "content-type": "application/json;charset=utf-8"
+                },
+                data: { // JSON.stringify????
+                    email: dataObj.email,
+                    password: dataObj.password
+                }
             });
         }
 
@@ -43,7 +58,8 @@ let currentUser = {}
             get: getData,
             post: postData,
             put: putData,
-            delete: deleteData
+            delete: deleteData,
+            loginPost: loginPost
             // currentUser: currentUser
         };
     }

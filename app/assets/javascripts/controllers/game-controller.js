@@ -1,6 +1,6 @@
-// (function(ng) {
-//   ng.module('TriviaApp').controller('GameController', function($state, localStorageService, $scope, DataRequestService, $q) {
-//       console.log('hi');
+(function(ng) {
+  ng.module('TriviaApp').controller('GameController', function($state, localStorageService, $scope, DataRequestService, $q) {
+      console.log('hi');
 //
 //     //   GAME LOGIC  /** USE SCOPE!!!!! *///
 //
@@ -94,6 +94,6 @@
 //
 //
 //
-//   });
-//
-// })(angular);
+  });
+
+})(angular);
