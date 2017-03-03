@@ -6,8 +6,8 @@
     border-radius: 10px;
     display: flex;
     flex-flow: column;
-    height: 500px;
-    justify-content: space-around;
+    height: 80%;
+    // justify-content: center;
     margin: 130px;
     width: 80%;
 }
@@ -17,7 +17,8 @@
     background: linear-gradient(135deg, rgba(250, 198, 149, 1) 0%, rgba(245, 171, 102, 1) 47%, rgba(239, 141, 49, 1) 100%);
     border-radius: 10px;
     flex-direction: column;
-    height: 80%;
+    height: 400px;
+    margin: 30px;
     width: 80%;
 }
 
@@ -72,8 +73,31 @@
     width: 100%;
 }
 
+.submit-answers {
+    border-radius: 10px;
+    background: linear-gradient(135deg, rgba(0, 183, 234, 1) 0%, rgba(0, 158, 195, 1) 100%);
+    font-family: 'Baloo';
+    font-size: 20px;
+    width: 100%;
+}
+
 .question-counter {
     float: right;
     font-family: 'Baloo';
     font-size: 25px;
+}
+
+.show-answer-container {
+    background: linear-gradient(135deg, rgba(0, 183, 234, 1) 0%, rgba(0, 158, 195, 1) 100%);
+    border-radius: 25px;
+    flex-flow: column;
+    font-family: 'Baloo';
+    font-size: 20px;
+    text-align: center;
+    margin: 15px;
+    // width: 130%;
+}
+
+.main-answer-container {
+    width: 90%;
 }

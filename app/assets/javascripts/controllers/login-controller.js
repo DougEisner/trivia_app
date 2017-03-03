@@ -1,22 +1,12 @@
 (function(ng) {
     ng.module('TriviaApp').controller('LoginController', function($state, localStorageService, $scope, DataRequestService, $q) {
-        console.log('in c');
 
         $scope.userInfo = []; // stores the signup form submission
         $scope.loginInfo = {}; // stores the login form
 
 
-        //   $q.when(DataRequestService.post('')).then((response) => {
-        //          console.log(response);
-        //          this.allQuestions = response.data; // set the response to the allQuestions Array?
-        //          getAnswer(this.allQuestions.whatever); /// maybe this instead?
-        //          console.log(this.allQuestions);
-        //      }).catch((error) => {
-        //          console.log(error);
-        //      });
 
 
-        // SEND DATA OF USERINFO TO POST REQUEST
 
         //   $q.when(DataRequestService.post('http://localhost:3000/auth', $scope.userInfo.inputInfo)).then((response) => {
         //          console.log(response);
@@ -26,38 +16,6 @@
         //      }).catch((error) => {
         //          console.log(error);
         //      });
-
-
-        $scope.inputInfo = { // inputinfo obj
-            userName: '',
-            passWord: '',
-            email: '',
-            imageUrl: ''
-        };
-
-        // this.logout = function() {
-        //     this.inputInfo.userName = null;
-        //     this.inputInfo.passWord = null;
-        //     $location.path('/');
-        // };
-
-        $scope.submit = function() { // submit function
-
-            //   console.log($scope.userInfo);
-            $scope.userInfo.push($scope.inputInfo); // push inputInfo in userInfo array
-            $scope.setInfo($scope.userInfo); // pass userInfo in setInfo function
-            $scope.userinfo = $scope.getInfo(); // set userinfo to getInfo function
-            //   console.log($scope.getInfo()[0].userName);
-            console.log($scope.userInfo);
-        };
-
-        $scope.setInfo = function(userInfo) { // set local storage
-            localStorageService.set('userInfo', $scope.userInfo);
-        };
-
-        $scope.getInfo = function() { // get local storage
-            return localStorageService.get('userInfo') || [];
-        };
 
         // SEND DATA OF USERINFO TO POST REQUEST
 
@@ -99,15 +57,15 @@
 
             console.log('I submit the signup form');
 
-            $q.when(DataRequestService.loginPost('http://localhost:3000/auth', $scope.userInfo[0])).then((response) => {
-                console.log(response);
-                //  console.log($scope.userInfo[0]);
-                //  this.allQuestions = response.data; // set the response to the allQuestions Array?
-                //  getAnswer(this.allQuestions.whatever); /// maybe this instead?
-                //  console.log(this.allQuestions);
-            }).catch((error) => {
-                //  console.log(error);
-            });
+              $q.when(DataRequestService.loginPost('http://localhost:3000/auth', $scope.userInfo[0])).then((response) => {
+                     console.log(response);
+                    //  console.log($scope.userInfo[0]);
+                    //  this.allQuestions = response.data; // set the response to the allQuestions Array?
+                    //  getAnswer(this.allQuestions.whatever); /// maybe this instead?
+                    //  console.log(this.allQuestions);
+                 }).catch((error) => {
+                    //  console.log(error);
+                 });
         };
 
         // this.logout = function() { // DELETE REQUEST
@@ -132,17 +90,17 @@
             // $scope.loginInfo = $scope.getNew(); // set loginInfo to getNew function
 
 
-            //
-            $q.when(DataRequestService.post('http://localhost:3000/auth/sign_in', $scope.loginInfo)).then((response) => {
-                console.log(response);
+              //
+              $q.when(DataRequestService.post('http://localhost:3000/auth/sign_in', $scope.loginInfo)).then((response) => {
+                     console.log(response);
 
-                //  console.log('hi');
-                //  this.allQuestions = response.data; // set the response to the allQuestions Array?
-                //  getAnswer(this.allQuestions.whatever); /// maybe this instead?
-                //  console.log(this.allQuestions);
-            }).catch((error) => {
-                //  console.log(error);
-            });
+                    //  console.log('hi');
+                    //  this.allQuestions = response.data; // set the response to the allQuestions Array?
+                    //  getAnswer(this.allQuestions.whatever); /// maybe this instead?
+                    //  console.log(this.allQuestions);
+                 }).catch((error) => {
+                    //  console.log(error);
+                 });
         };
 
         // $scope.setInfo = function(userInfo) { // set local storage
@@ -169,6 +127,7 @@
         // $scope.getNew = function() {
         //     return localStorageService.get('loginInfo');
         // };
+
     });
 
 })(angular);
