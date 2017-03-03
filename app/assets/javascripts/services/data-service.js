@@ -1,7 +1,6 @@
 (function(ng) {
   ng.module('TriviaApp').service('DataRequestService', AllDataService);
 
-let currentUser = {}
     function AllDataService($http) {
         function getData(url) {
             return $http({
