@@ -1,3 +1,4 @@
+require 'json'
 require 'httparty'
 
 class QuestionsController < ApplicationController
@@ -5,30 +6,37 @@ class QuestionsController < ApplicationController
   def index
     level = params[:level]
     level = 'hard'
-    questions = HTTParty.get("https://www.opentdb.com/api.php?amount=50&difficulty=#{level}&type=multiple")
+    response = HTTParty.get("https://www.opentdb.com/api.php?amount=10&difficulty=#{level}&type=multiple")
+
+    response = clean_output(response.body)
+
+    response = JSON.parse(response)
 
     processed_questions = []
-    questions["results"].each do |item|
-      hash = {}
+
+    response["results"].each do |item|
       question = item["question"]
-      all_answers = item["incorrect_answers"] << item["correct_answer"]
-      random_answers = all_answers.shuffle
       correct_answer = item["correct_answer"]
-
-      random_answers = random_answers.clean_output
-      hash = { question: question, answers: random_answers, correct_answer: correct_answer }
-      processed_questions << hash
+      all_answers = item["incorrect_answers"] << correct_answer
+      random_answers = all_answers.shuffle
+      processed_questions << { question: question, answers: random_answers, correct_answer: correct_answer }
     end
 
-    def clean_output(array)
-      array.each do |s|
-        s.gsub!("&#039;", "\'")
-        s.gsub!("&quot;", "\"")
-        s.gsub!("&#039;", '\'')
-        s.gsub!("&amp;", '&')
-      end
-
-    end
-      p processed_questions
+    render json: processed_questions
   end
+
+  def clean_output(response_body)
+    replacements = {
+      "&#039;" => "\'",
+      "&quot;" => "\\\"",
+      "&amp;"  => "&",
+    }
+
+    replacements.each do |encoded, replacement|
+      response_body = response_body.gsub(encoded, replacement)
+    end
+
+    response_body
+  end
+
 end
