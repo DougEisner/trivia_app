@@ -1,8 +1,9 @@
 (function(ng) {
     ng.module('TriviaApp').controller('LoginController', function($state, localStorageService, $scope, UserService, DataRequestService, $q) {
-        console.log(UserService.getUser());
+        // console.log(UserService.getUser());
         $scope.userInfo = UserService.getUser(); // stores the signup form submission
-        console.log($scope.userInfo);
+        // console.log($scope.userInfo);
+
         $scope.loginInfo = {}; // stores the login form
 
 
@@ -22,7 +23,7 @@
 
 
 
-        // events for toggling login
+        // events for toggling login and signup
         $('.toggle-link').on('click', function() {
             $('.image-url').toggleClass('is-hidden');
             $('.username').toggleClass('is-hidden');
@@ -56,11 +57,17 @@
 
             // console.log($scope.userInfo[0]);
 
-            // console.log('I submit the signup form');
+            console.log('I submit the signup form');
 
-              $q.when(DataRequestService.loginPost('http://localhost:3000/auth', $scope.userInfo[0])).then((response) => {
-                    //  console.log(response.data.data);
+              $q.when(DataRequestService.post('http://localhost:3000/auth', $scope.userInfo[0])).then((response) => {
+                  //
+                //   console.log('user-info -->' $scope.userInfo);
 
+                     console.log(response);
+
+                     $scope.userInfo = response.data.data;
+                     UserService.currentUser.push($scope.userInfo);
+                    //  console.log(UserService.currentUser);
 
                     //  console.log($scope.userInfo[0]);
                     //  this.allQuestions = response.data; // set the response to the allQuestions Array?
@@ -69,13 +76,20 @@
                  }).catch((error) => {
                     //  console.log(error);
                  });
+
+                 $state.go('TriviaParent.profile');
         };
 
-        // this.logout = function() { // DELETE REQUEST
-        //     this.inputInfo.userName = null;
-        //     this.inputInfo.passWord = null;
-        //     $location.path('/'); $state.go('TriviaParent.login'); http://localhost:3000/#!/login
-        // };
+        $scope.logout = function() { // DELETE REQUEST
+            // $scope.userInfo = [];
+            // $location.path('/'); $state.go('TriviaParent.login'); http://localhost:3000/#!/login
+
+            $q.when(DataRequestService.delete('http://localhost:3000/auth/sign_out')).then((response) => {
+                   console.log(response);
+               }).catch((error) => {
+                  //  console.log(error);
+               });
+        };
 
 
         // function for login button for the initial login
@@ -93,12 +107,13 @@
             $scope.loginInfo = $scope.getNew(); // set loginInfo to getNew function
             $state.go('TriviaParent.profile');
 
-              //
-              $q.when(DataRequestService.post('http://localhost:3000/auth/sign_in', $scope.loginInfo)).then((response) => {
-                //   console.log(response.data.data);
 
-                $scope.userInfo = response.data.data;
-                UserService.currentUser.push($scope.userInfo);
+              $q.when(DataRequestService.loginPost('http://localhost:3000/auth/sign_in', $scope.loginInfo)).then((response) => {
+                  console.log(response);
+
+
+                // $scope.userInfo = response.data.data;
+                // UserService.currentUser.push($scope.userInfo);
                 console.log(UserService.currentUser);
                     //  console.log('hi');
                     //  this.allQuestions = response.data; // set the response to the allQuestions Array?
