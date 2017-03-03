@@ -1,8 +1,9 @@
 (function(ng) {
     ng.module('TriviaApp').controller('LoginController', function($state, localStorageService, $scope, UserService, DataRequestService, $q) {
-        console.log(UserService.getUser());
+        // console.log(UserService.getUser());
         $scope.userInfo = UserService.getUser(); // stores the signup form submission
-        console.log($scope.userInfo);
+        // console.log($scope.userInfo);
+
         $scope.loginInfo = {}; // stores the login form
 
 
@@ -54,12 +55,16 @@
             $scope.setInfo($scope.userInfo); // pass userInfo in setInfo function
             $scope.userinfo = $scope.getInfo(); // set userinfo to getInfo function
 
-            // console.log($scope.userInfo[0]);
+            console.log($scope.userInfo[0]);
 
-            // console.log('I submit the signup form');
+            console.log('I submit the signup form');
 
               $q.when(DataRequestService.loginPost('http://localhost:3000/auth', $scope.userInfo[0])).then((response) => {
-                    //  console.log(response.data.data);
+                     console.log(response.data.data);
+
+                     $scope.userInfo = response.data.data;
+                     UserService.currentUser.push($scope.userInfo);
+                     console.log(UserService.currentUser);
 
 
                     //  console.log($scope.userInfo[0]);
@@ -69,13 +74,20 @@
                  }).catch((error) => {
                     //  console.log(error);
                  });
+
+                 $state.go('TriviaParent.profile');
         };
 
-        // this.logout = function() { // DELETE REQUEST
-        //     this.inputInfo.userName = null;
-        //     this.inputInfo.passWord = null;
-        //     $location.path('/'); $state.go('TriviaParent.login'); http://localhost:3000/#!/login
-        // };
+        $scope.logout = function() { // DELETE REQUEST
+            // $scope.userInfo = [];
+            // $location.path('/'); $state.go('TriviaParent.login'); http://localhost:3000/#!/login
+
+            $q.when(DataRequestService.delete('http://localhost:3000/auth/sign_out')).then((response) => {
+                   console.log(response);
+               }).catch((error) => {
+                  //  console.log(error);
+               });
+        };
 
 
         // function for login button for the initial login
@@ -95,7 +107,8 @@
 
               //
               $q.when(DataRequestService.post('http://localhost:3000/auth/sign_in', $scope.loginInfo)).then((response) => {
-                //   console.log(response.data.data);
+                  console.log(response);
+
 
                 $scope.userInfo = response.data.data;
                 UserService.currentUser.push($scope.userInfo);
