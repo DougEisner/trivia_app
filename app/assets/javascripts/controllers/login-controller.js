@@ -23,7 +23,7 @@
 
 
 
-        // events for toggling login
+        // events for toggling login and signup
         $('.toggle-link').on('click', function() {
             $('.image-url').toggleClass('is-hidden');
             $('.username').toggleClass('is-hidden');
@@ -55,17 +55,19 @@
             $scope.setInfo($scope.userInfo); // pass userInfo in setInfo function
             $scope.userinfo = $scope.getInfo(); // set userinfo to getInfo function
 
-            console.log($scope.userInfo[0]);
+            // console.log($scope.userInfo[0]);
 
             console.log('I submit the signup form');
 
-              $q.when(DataRequestService.loginPost('http://localhost:3000/auth', $scope.userInfo[0])).then((response) => {
-                     console.log(response.data.data);
+              $q.when(DataRequestService.post('http://localhost:3000/auth', $scope.userInfo[0])).then((response) => {
+                  //
+                //   console.log('user-info -->' $scope.userInfo);
+
+                     console.log(response);
 
                      $scope.userInfo = response.data.data;
                      UserService.currentUser.push($scope.userInfo);
-                     console.log(UserService.currentUser);
-
+                    //  console.log(UserService.currentUser);
 
                     //  console.log($scope.userInfo[0]);
                     //  this.allQuestions = response.data; // set the response to the allQuestions Array?
@@ -105,13 +107,13 @@
             $scope.loginInfo = $scope.getNew(); // set loginInfo to getNew function
             $state.go('TriviaParent.profile');
 
-              //
-              $q.when(DataRequestService.post('http://localhost:3000/auth/sign_in', $scope.loginInfo)).then((response) => {
+
+              $q.when(DataRequestService.loginPost('http://localhost:3000/auth/sign_in', $scope.loginInfo)).then((response) => {
                   console.log(response);
 
 
-                $scope.userInfo = response.data.data;
-                UserService.currentUser.push($scope.userInfo);
+                // $scope.userInfo = response.data.data;
+                // UserService.currentUser.push($scope.userInfo);
                 console.log(UserService.currentUser);
                     //  console.log('hi');
                     //  this.allQuestions = response.data; // set the response to the allQuestions Array?
