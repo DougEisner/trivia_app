@@ -1,6 +1,6 @@
 <section class="user-game-main">
     <div class="trivia-main">
-        <span class="question-counter"> Question #1</span>
+        <span class="question-counter"> Question #{{questionCounter}}</span>
 
         <div class="main-game-section">
 
@@ -8,40 +8,19 @@
                 <input type="submit" class="bummer" value="Next Question" />
                 <input type="submit" class="bummer" value="Submit" />
             </form>
-            <div class="trivia-question-section">
+            <div ng-repeat="question in currentQuestion" class="trivia-question-section">
 
                 <p class="trivia-question">
-                    How awesome is Samuel L. Jackson?
+                    {{question.question}}
                 </p>
             </div>
-            <div class="trivia-answer-section">
+            <div ng-repeat="answer in currentQuestion.answers" class="trivia-answer-section">
                 <div class="radio">
                     <input type="radio" name="answer" class="answer-button" />
                     <label for="answer"></label>
                 </div>
                 <p class="trivia-answer">
-                    Mutha Fuckin Awesome!!!
-                </p>
-                <div class="radio">
-                    <input type="radio" name="answer" class="answer-button" />
-                    <label for="answer"></label>
-                </div>
-                <p class="trivia-answer">
-                    Mutha Fuckin Awesome!!!
-                </p>
-                <div class="radio">
-                    <input type="radio" name="answer" class="answer-button" />
-                    <label for="answer"></label>
-                </div>
-                <p class="trivia-answer">
-                    Mutha Fuckin Awesome!!!
-                </p>
-                <div class="radio">
-                    <input type="radio" name="answer" class="answer-button" />
-                    <label for="answer"></label>
-                </div>
-                <p class="trivia-answer">
-                    Mutha Fuckin Awesome!!!
+                    {{answer}}
                 </p>
             </div>
         </div>

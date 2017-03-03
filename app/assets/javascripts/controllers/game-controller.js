@@ -8,7 +8,7 @@
       $scope.incorrectCount = 0; // count for incorrect answers
       $scope.count = $scope.allQuestions.length + 1; // count for page/ # of question user is on
       $scope.currentQuestion = {}; // current question obj
-
+      $scope.questionCounter = 1; //**** IF COUNTER IS > 9 , show submit button, dispay none the container of questions
 
 
     // //   GAME LOGIC  /** USE SCOPE!!!!! *///
@@ -17,36 +17,124 @@
 //   1)
 
     // get question function
-    $scope.getQuestion = function() {
+    $scope.getQuestion = function() { // tied to my next question button
+        if ($scope.questionCounter < 10) {
+
           $q.when(DataRequestService.get('/questions/index')).then((response) => {
-              console.log(response);
+            //   console.log(response);
 
+              $scope.currentQuestion.questionObj = response.data.questions[0];
+              $scope.currentQuestion.question = $scope.currentQuestion.questionObj.question;
+              $scope.currentQuestion.correctAnswer = $scope.currentQuestion.questionObj.correct_answer;
+              $scope.currentQuestion.answers = $scope.currentQuestion.questionObj.answers;
 
-              $scope.currentQuestion = {}; // set currentQuestion to an empty object
+              console.log($scope.currentQuestion);
 
-              $scope.allQuestions = response.data.questions; // set the response questions to the all questions array
+              for (let i = 0; i < 4; i++) {
 
-            //   console.log($scope.allQuestions);
+                //   $('.trivia-answer').text($scope.currentQuestion.answers[i]);
+                    console.log($scope.currentQuestion.answers[i]);
 
-            //   $scope.currentQuestion.question = response.data
-              //
-            //   getAnswer(this.allQuestions.whatever); /// maybe this instead?
-              //
-            //   build current question obj
-            //       this.currentQuestipn.question = response.question // THIS WOULD GO IN ANGULAR HTML
-            //       this.currentoptions.options = response.options // aray of options
-            //       this.correctAnswer.correct answer = response.correctanswer
-              //
-            //      allQuestions.push(currentQuestion); // push currentQuestion into all questions array ??
-            //      console.log(allQuestions)
-            //      display the question
+              }
 
+              $scope.questionCounter = $scope.questionCounter + 1;
 
-            //   console.log(this.allQuestions);
+              console.log($scope.questionCounter);
           }).catch((error) => {
-              console.log(error);
-          });
-      };
+                  console.log(error);
+              });
+
+        } else {
+             console.log('Game OVER!!'); // show submit button
+        }
+    };
+
+
+    //       $q.when(DataRequestService.get('/questions/index')).then((response) => {
+    //           console.log(response);
+      //
+    //           $scope.currentQuestion.questionObj = response.data.questions[0];
+    //           $scope.currentQuestion.question = $scope.currentQuestion.questionObj.question;
+    //           $scope.currentQuestion.correctAnswer = $scope.currentQuestion.questionObj.correct_answer;
+    //           $scope.currentQuestion.answers = $scope.currentQuestion.questionObj.answers;
+      //
+    //           for (let i = 0; i < 4; i++) {
+      //
+    //                 console.log($scope.currentQuestion.answers[i]);
+      //
+    //           }
+      //
+    //           $scope.questionCounter = $scope.questionCounter + 1;
+      //
+    //           console.log($scope.questionCounter);
+    //       } ) else {
+    //           console.log('Game OVER!!');
+    //       }
+      //
+    //       }).catch((error) => {
+    //           console.log(error);
+    //       });
+    //   };
+
+      //   console.log($scope.currentQuestion.answers[0]);
+      //   console.log($scope.currentQuestion.answers[1]);
+      //   console.log($scope.currentQuestion.answers[2]);
+      //   console.log($scope.currentQuestion.answers[3]);
+
+
+
+
+      //   if (typeof $scope.currentQuestionIndex == 'undefined') {
+      //       $scope.currentQuestionIndex = 0;
+      // } else {
+      //     $scope.currentQuestionIndex++;
+      // }
+      //
+      // if ($scope.currentQuestionIndex >= response.data.questions.length) {
+      //     $scope.currentQuestionIndex = 0
+      // }
+
+      // $scope.currentQuestion = response.data.questions[$scope.currentQuestionIndex]; // set currentQuestion to an empty object
+      //
+      //   console.log($scope.currentQuestion);
+      //
+      //   $scope.allQuestions = response.data.questions; // set the response questions to the all questions array
+
+      //   console.log($scope.allQuestions);
+
+      //   console.log(response.data.questions.question);
+
+        // build current question object
+
+      //   $scope.currentQuestion.question = response.data;
+
+      //   $scope.currentQuestion.question = response.data
+        //
+      //   getAnswer(this.allQuestions.whatever); /// maybe this instead?
+
+
+
+      //   build current question obj
+          //   this.currentQuestipn.question = response.question // THIS WOULD GO IN ANGULAR HTML
+          //   this.currentoptions.options = response.options // aray of options
+          //   this.correctAnswer.correct answer = response.correctanswer
+           //
+          //  allQuestions.push(currentQuestion); // push currentQuestion into all questions array ??
+          //  console.log(allQuestions)
+          //  display the question
+
+
+      //   console.log(this.allQuestions);
+
+
+
+
+
+
+
+
+
+
     //
     //  2 this.getUserAnswer = function() {
     //
@@ -81,7 +169,7 @@
     //         wrong++
     //         return false;
     //     }
-    //
+    // //
     //     //   for (let i = 0; i < allQuestions.length; i++) {
     //       //
     //       //
@@ -97,8 +185,8 @@
     //   };
     //
     //  4) this.nextQuestion = function() { // ng-submit = nextQuestion(); tied to next button (on next button submit listener => getAnswer() and getQuestion())
-    //
-    //
+     //
+     //
     //      // ng-model or jquery to get their selection
     //      // store into current question obj as user answer prop
     //      // push into all questions array
@@ -107,7 +195,7 @@
     //      getQuestion();
     //     //  getUserAnswer();
     //   };
-    //
+
     // //   this.processStats = function() { // ng-submit = processStats();
     // //       // iterate over all questions array and print results // You scored (correct)/ out of (count)
     //
