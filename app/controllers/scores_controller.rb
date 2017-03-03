@@ -2,7 +2,7 @@ require 'json'
 
 class ScoresController < ApplicationController
   def index
-    @scores = Score.all.limit(10)
+    @scores = Score.all.limit(10).order("game_score DESC")
     render json: @scores
   end
 

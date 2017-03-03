@@ -1,6 +1,7 @@
 (function(ng) {
   ng.module('TriviaApp').service('DataRequestService', AllDataService);
 
+let currentUser = {}
     function AllDataService($http) {
         function getData(url) {
             return $http({
@@ -9,16 +10,30 @@
             });
         }
 
-        function postData(url) {
+        function postData(url, dataObj) {
             return $http({
                 method: 'POST',
                 url: url,
+                dataType: "json",
                 headers: {
                     "content-type": "application/json;charset=utf-8"
                 },
-                data: JSON.stringify({
+                data: dataObj
+            });
+        }
 
-                })
+        function loginPost(url, dataObj) {
+            return $http({
+                method: 'POST',
+                url: url,
+                dataType: "json",
+                headers: {
+                    "content-type": "application/json;charset=utf-8"
+                },
+                data: { // JSON.stringify????
+                    email: dataObj.email,
+                    password: dataObj.password
+                }
             });
         }
 
@@ -43,7 +58,9 @@
             get: getData,
             post: postData,
             put: putData,
-            delete: deleteData
+            delete: deleteData,
+            loginPost: loginPost
+            // currentUser: currentUser
         };
     }
 
