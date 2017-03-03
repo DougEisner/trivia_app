@@ -9,6 +9,7 @@ gem 'bower-rails'
 gem 'devise_token_auth'
 gem 'angular-rails-templates'
 gem 'active_model_serializers'
+gem 'httparty'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.0.1'
