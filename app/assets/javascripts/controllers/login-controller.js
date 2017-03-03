@@ -59,7 +59,7 @@
 
             console.log('I submit the signup form');
 
-              $q.when(DataRequestService.post('http://localhost:3000/auth', $scope.userInfo[0])).then((response) => {
+              $q.when(DataRequestService.post('/auth', $scope.userInfo[0])).then((response) => {
                   //
                 //   console.log('user-info -->' $scope.userInfo);
 
@@ -84,7 +84,7 @@
             // $scope.userInfo = [];
             // $location.path('/'); $state.go('TriviaParent.login'); http://localhost:3000/#!/login
 
-            $q.when(DataRequestService.delete('http://localhost:3000/auth/sign_out')).then((response) => {
+            $q.when(DataRequestService.delete('/auth/sign_out')).then((response) => {
                    console.log(response);
                }).catch((error) => {
                   //  console.log(error);
@@ -108,7 +108,7 @@
             $state.go('TriviaParent.profile');
 
 
-              $q.when(DataRequestService.loginPost('http://localhost:3000/auth/sign_in', $scope.loginInfo)).then((response) => {
+              $q.when(DataRequestService.loginPost('http://auth/sign_in', $scope.loginInfo)).then((response) => {
                   console.log(response);
 
 

@@ -1,36 +1,45 @@
 (function(ng) {
   ng.module('TriviaApp').controller('GameController', function($state, localStorageService, $scope, DataRequestService, $q, UserService) {
       console.log('hi');
-    //   $scope.currentUser = UserService.getUser(); // gets the current user data from the service
-    //
-    //
+      $scope.currentUser = UserService.getUser(); // gets the current user data from the service **USE THIS IN EVERY CONTROLLER**
+
+      $scope.allQuestions = []; // stores all questions
+      $scope.correctCount = 0; // count for correct answers
+      $scope.incorrectCount = 0; // count for incorrect answers
+      $scope.count = $scope.allQuestions.length + 1; // count for page/ # of question user is on
+      $scope.currentQuestion = {}; // current question obj
+
 
 
     // //   GAME LOGIC  /** USE SCOPE!!!!! *///
-    //
-    //   this.allQuestions = []; // stores all questions
-    //   this.correctCount = 0; // count for correct answers
-    //   this.incorrectCount = 0; // count for incorrect answers
-    //   this.count = allQuestions.length + 1; // count for page/ # of question user is on
-    //   this.currentQuestion = {}; // current question obj
-    //
-    // //   1)
+
+
+//   1)
+
+    // get question function
     $scope.getQuestion = function() {
-          $q.when(DataRequestService.get('http://localhost:3000/questions/index')).then((response) => {
+          $q.when(DataRequestService.get('/questions/index')).then((response) => {
               console.log(response);
-            //   this.currentQuestion = {};
 
-            //   this.allQuestions = response.data; // set the response to the allQuestions Array?
+
+              $scope.currentQuestion = {}; // set currentQuestion to an empty object
+
+              $scope.allQuestions = response.data.questions; // set the response questions to the all questions array
+
+            //   console.log($scope.allQuestions);
+
+            //   $scope.currentQuestion.question = response.data
+              //
             //   getAnswer(this.allQuestions.whatever); /// maybe this instead?
-
+              //
             //   build current question obj
             //       this.currentQuestipn.question = response.question // THIS WOULD GO IN ANGULAR HTML
             //       this.currentoptions.options = response.options // aray of options
             //       this.correctAnswer.correct answer = response.correctanswer
-
-                //  allQuestions.push(currentQuestion); // push currentQuestion into all questions array ??
-                //  console.log(allQuestions)
-                 // display the question
+              //
+            //      allQuestions.push(currentQuestion); // push currentQuestion into all questions array ??
+            //      console.log(allQuestions)
+            //      display the question
 
 
             //   console.log(this.allQuestions);
