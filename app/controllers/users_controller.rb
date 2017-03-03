@@ -1,9 +1,11 @@
+require 'json'
+
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :destroy, :update]
 
   def index
-    # @users = User.all
-    @users = User.filter(params.slice(:u_name, :nickname, :email))
+    @users = User.all
+    # @users = User.filter(params.slice(:u_name, :nickname, :email))
     render json: @users
   end
 
