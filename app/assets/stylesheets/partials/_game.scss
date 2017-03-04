@@ -56,9 +56,17 @@
 }
 
 .radio {
-    width: 30px;
+    width: 140px;
     height: 30px;
     position: relative;
+}
+
+input[type="radio"], input[type="checkbox"] {
+  padding: 50px;
+}
+
+label.ng-binding {
+    margin-right: 20px;
 }
 
 .page-buttons {

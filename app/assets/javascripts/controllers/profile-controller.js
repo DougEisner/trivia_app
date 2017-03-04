@@ -7,13 +7,14 @@
         //     $location.path('/game');
         // }
 
-        $scope.changeToGamePage = function() {
-            $state.go('TriviaParent.game');
-        };
+        // $scope.changeToGamePage = function() {
+        //     $state.go('TriviaParent.login');
+        // };
 
-        // $('.start-game-button').on('click', function() {
-        //     console.log('in');
-        // });
+        $('.start-game-button').on('click', function() {
+            $state.go('TriviaParent.game');
+        });
+
 
 
         // display username, image, correctTotal, and incorrectTotal from LoginController & Game-Controller

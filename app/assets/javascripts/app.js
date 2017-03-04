@@ -16,7 +16,7 @@
             }).state('TriviaParent.profile', {
                 url: 'profile',
                 templateUrl: 'userprofile.html',
-                controller: "LoginController as login"
+                controller: "ProfileController as profile"
             }).state('TriviaParent.game', {
                 url: 'game',
                 templateUrl: 'game.html',

@@ -1,12 +1,13 @@
 <section class="user-game-main">
     <div class="trivia-main">
-        <span class="question-counter"> Question #{{questionCounter}}</span>
+        <span class="question-counter"> Question #{{count}}</span>
 
         <div class="main-game-section">
 
-            <form type="submit" ng-submit="getQuestion()" class="page-buttons">
-                <input type="submit" class="bummer" value="Next Question" />
-                <input type="submit" class="submit-answers" value="Submit" />
+            <form type="submit" class="page-buttons">
+                <input type="submit" ng-click="getQuestion()" class="get-question" value="Get Question">
+                <!-- <input type="submit" class="bummer" ng-click="nextQuestion()" value="Next Question"> -->
+                <input type="submit" class="submit-answers" value="Submit">
             </form>
             <div ng-repeat="question in currentQuestion" class="trivia-question-section">
 
@@ -14,19 +15,15 @@
                     {{question.question}}
                 </p>
             </div>
-            <div ng-repeat="answer in currentQuestion.answers" class="trivia-answer-section">
-                <div class="radio">
-                    <input type="radio" name="answer" class="answer-button" />
-                    <label for="answer"></label>
+            <div ng-repeat= "items in currentQuestion" class="trivia-answer-section">
+                <div ng-repeat="answer in items.answers " class="radio">
+                    <input type="radio" name="answer" ng-click="getUserAnswer()" ng-value="answer" class="answer-button" />
+                    <label for="answer">{{answer}}</label>
                 </div>
-                <p class="trivia-answer">
-                    {{answer}}
-                </p>
-
             </div>
         </div>
     </div>
-    
+
     <div class="main-answer-container">
         <section class="show-answer-container is-hidden">
             <p>Question: How awesome is Samuel L Jackson?</p>

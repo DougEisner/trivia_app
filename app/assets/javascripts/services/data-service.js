@@ -21,6 +21,21 @@
             });
         }
 
+        function postScores(url, dataObj) {
+            return $http({
+                method: 'POST',
+                url: url,
+                dataType: "json",
+                headers: {
+                    "content-type": "application/json;charset=utf-8"
+                },
+                data: {
+                    'score[game_score]': datObj.score,
+                    'score[user_id]': dataObj.user_id
+                }
+            });
+        }
+
         function loginPost(url, dataObj) {
             return $http({
                 method: 'POST',

@@ -1,8 +1,8 @@
-<section class="user-profile-main">
+<section class="user-profile-main ng-controller="GameController as game"">
     <div class="userProfile">
         <img src="https://s-media-cache-ak0.pinimg.com/736x/bf/b6/19/bfb6192a36bb33728209ac1040f2f574.jpg" class="user-avatar" />
         <nav class="user-nav-bar">
-            <h1 class="user-name">Doody Doo</h1>
+            <h1 ng-model="userInfo.nickname" class="user-name">{{userInfo[0].nickname}}</h1>
             <!-- {{inputInfo}} -->
         </nav>
     </div>
@@ -10,7 +10,6 @@
         <h1>Statistics</h1>
         <p>Correct: 13600</p>
         <p>Incorrect: 230</p>
-        <input ng-click="changeToGamePage()" type="submit" class="start-game-button" value="Start Game" />
+        <input type="submit" class="start-game-button" value="Start Game">
     </div>
-    <h1 class="user-name">{{userInfo[0].nickname}}</h1> <!-- {{inputInfo}} -->
 </section>

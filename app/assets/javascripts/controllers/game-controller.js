@@ -7,48 +7,138 @@
       $scope.allQuestions = []; // stores all questions
       $scope.correctCount = 0; // count for correct answers
       $scope.incorrectCount = 0; // count for incorrect answers
-      $scope.count = $scope.allQuestions.length + 1; // count for page/ # of question user is on
+      $scope.count = ''; // count for page/ # of question user is on
       $scope.currentQuestion = {}; // current question obj
-      $scope.questionCounter = 1; //**** IF COUNTER IS > 9 , show submit button, dispay none the container of questions
-
+      $scope.questionCounter = 0; //**** IF COUNTER IS > 9 , show submit button, dispay none the container of questions
+      $scope.correctTotal = 0; // send to backend after each round
+      $scope.incorrectTotal = 0;
 
     // //   GAME LOGIC  /** USE SCOPE!!!!! *///
 
+    // /** JQUERY Class Toggles, Adds, & Removals  ** //
 
-//   1)
+    $('.bummer').addClass('is-hidden');
+    $('.submit-answers').addClass('is-hidden');
+    $('.question-counter').addClass('is-hidden');
+    //
+    $('.get-question').on('click', function() {
+    //     $('.get-question').toggleClass('is-hidden');
+    //     $('.bummer').removeClass('is-hidden');
+    //     $('.submit-answers').addClass('is-hidden'); // remove it when counter > 9
+        $('.question-counter').removeClass('is-hidden');
+    //
+    //     // $scope.getQuestion = function() { // tied to my next question button
+    //     //     if ($scope.questionCounter < 10) {
+    //     //
+    //     //       $q.when(DataRequestService.get('/questions/index')).then((response) => {
+    //     //         //   console.log(response);
+    //     //
+    //     //           $scope.currentQuestion.questionObj = response.data.questions[0];
+    //     //           $scope.currentQuestion.question = $scope.currentQuestion.questionObj.question;
+    //     //           $scope.currentQuestion.correctAnswer = $scope.currentQuestion.questionObj.correct_answer;
+    //     //           $scope.currentQuestion.answers = $scope.currentQuestion.questionObj.answers;
+    //     //
+    //     //           console.log($scope.currentQuestion);
+    //     //
+    //     //           for (let i = 0; i < 4; i++) {
+    //     //                 console.log($scope.currentQuestion.answers[i]);
+    //     //           }
+    //     //
+    //     //           $scope.questionCounter = $scope.questionCounter + 1;
+    //     //
+    //     //           console.log($scope.questionCounter);
+    //     //       }).catch((error) => {
+    //     //               console.log(error);
+    //     //           });
+    //     //
+    //     //     } else {
+    //     //          console.log('Game OVER!!'); // show submit button
+    //     //     }
+    //     // };
+        });
 
-    // get question function
-    $scope.getQuestion = function() { // tied to my next question button
-        if ($scope.questionCounter < 10) {
 
-          $q.when(DataRequestService.get('/questions/index')).then((response) => {
-            //   console.log(response);
+        $scope.getQuestion = function() { // tied to get question button , /* maybe call this on load */ ?
+            $q.when(DataRequestService.get('/questions/index')).then((response) => {
 
-              $scope.currentQuestion.questionObj = response.data.questions[0];
-              $scope.currentQuestion.question = $scope.currentQuestion.questionObj.question;
-              $scope.currentQuestion.correctAnswer = $scope.currentQuestion.questionObj.correct_answer;
-              $scope.currentQuestion.answers = $scope.currentQuestion.questionObj.answers;
+                $scope.currentQuestion.questionObj = response.data.questions[0];
+                $scope.currentQuestion.question = response.data.questions[0].question;
+                $scope.currentQuestion.correctAnswer = response.data.questions[0].correct_answer;
+                $scope.currentQuestion.answers = response.data.questions[0].answers;
 
-              console.log($scope.currentQuestion);
+                $scope.allQuestions.push($scope.currentQuestion);
+                console.log($scope.allQuestions);
 
-              for (let i = 0; i < 4; i++) {
+                $scope.count = $scope.allQuestions.length;
 
-                //   $('.trivia-answer').text($scope.currentQuestion.answers[i]);
-                    console.log($scope.currentQuestion.answers[i]);
+                if ($scope.count > 9 ) {
+                    $('.submit-answers').removeClass('is-hidden');
+                    $('.get-question').toggleClass('is-hidden');
+                }
 
+                // console.log($scope.currentQuestion);
+
+
+            }).catch((error) => {
+                console.log(error);
+            });
+        };
+
+        $scope.getUserAnswer = function() {
+            if($("input[name='answer']").is(':checked')) {
+                $scope.currentQuestion.userAnswer = $("input[name='answer']:checked").val();
+                console.log($scope.currentQuestion);
+                $scope.currentQuestion.isUserAnswerCorrect = $scope.checkAnswer();
+            } else {
+                $("input[name='answer']").attr('checked', false);
+            }
+        };
+
+        $scope.checkAnswer = function() {
+            if ($scope.currentQuestion.userAnswer === $scope.currentQuestion.correctAnswer) {
+                    $scope.correctCount++;
+                    console.log($scope.correctCount + 'correct');
+                    return true;
+                } else {
+                    $scope.incorrectCount++;
+                    console.log($scope.incorrectCount + 'incorrect');
+                    return false;
+                }
+        };
+
+        $scope.nextQuestion = function() {
+            $scope.getQuestion();
+            $scope.getUserAnswer();
+            $scope.checkAnswer();
+        };
+
+
+
+        this.processStats = function() { // ng-submit = processStats();
+
+              for (let i = 0; i < allQuestions.length; i++ ) {
+                  $scope.correctTotal = $scope.correctCount;
+                  $scope.incorrectTotal = $scope.incorrectCount;
+
+                //   $scope.currentUser.userTotal = $scope.correctTotal;
+                //   $scope.currentUser.userIncorrect = $scope.incorrectTotal;
               }
 
-              $scope.questionCounter = $scope.questionCounter + 1;
+            //   console.log($scope.currentUser);
 
-              console.log($scope.questionCounter);
-          }).catch((error) => {
+              $q.when(DataRequestService.post('/scores, ')).then((response) => {
+
+
+              }).catch((error) => {
                   console.log(error);
               });
+            //   state.go
+          };
 
-        } else {
-             console.log('Game OVER!!'); // show submit button
-        }
-    };
+
+
+
+
 
 
     //       $q.when(DataRequestService.get('/questions/index')).then((response) => {
