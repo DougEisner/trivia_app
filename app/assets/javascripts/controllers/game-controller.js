@@ -1,4 +1,5 @@
 (function(ng) {
+
   ng.module('TriviaApp').controller('GameController', function($state, localStorageService, $scope, DataRequestService, $q, UserService) {
       console.log('hi');
       $scope.currentUser = UserService.getUser(); // gets the current user data from the service **USE THIS IN EVERY CONTROLLER**
@@ -226,8 +227,25 @@
     // //   ng-hide next button if "counter === 10 " // if time over weekend look into doing this with jquery
 
 
+    $('.submit-answers').on('click', function() {
+        // console.log('in');
+        $('.show-answer-container').removeClass('is-hidden');
+        $('.play-again-button').removeClass('is-hidden');
+    });
+
+    $('.play-again-button').on('click', function() {
+        $('.show-answer-container').addClass('is-hidden');
+        $('.play-again-button').addClass('is-hidden');
+    });
+
+    $scope.changeToGamePage = function() {
+        $state.go('TriviaParent.game');
+    };
 
 
   });
+
+
+
 
 })(angular);

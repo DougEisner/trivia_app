@@ -21,7 +21,7 @@
     font-size: 30px;
     height: 50px;
     justify-content: space-around;
-    margin: 20px;
+    margin: 10px;
     width: 100%;
 }
 
@@ -33,4 +33,13 @@
     flex-direction: column;
     align-items: center;
     width: 70%;
+}
+
+.play-again-button {
+    border-radius: 10px;
+    background: linear-gradient(135deg, rgba(0, 183, 234, 1) 0%, rgba(0, 158, 195, 1) 100%);
+    font-family: 'Baloo';
+    font-size: 20px;
+    margin-bottom: 20px;
+    width: 20%;
 }

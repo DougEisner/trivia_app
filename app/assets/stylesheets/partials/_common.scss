@@ -1,13 +1,91 @@
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:300);
-@import url('https://fonts.googleapis.com/css?family=Baloo');
-@import url('https://fonts.googleapis.com/css?family=Lato|Slabo+27px');
-
+@import url( 'https://fonts.googleapis.com/css?family=Baloo');
+@import url( 'https://fonts.googleapis.com/css?family=Lato|Slabo+27px');
 /* http://meyerweb.com/eric/tools/css/reset/
    v2.0 | 20110126
    License: none (public domain)
 */
-
-html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+a,
+abbr,
+acronym,
+address,
+applet,
+article,
+aside,
+audio,
+b,
+big,
+blockquote,
+body,
+canvas,
+caption,
+center,
+cite,
+code,
+dd,
+del,
+details,
+dfn,
+div,
+dl,
+dt,
+em,
+embed,
+fieldset,
+figcaption,
+figure,
+footer,
+form,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+header,
+hgroup,
+html,
+i,
+iframe,
+img,
+ins,
+kbd,
+label,
+legend,
+li,
+mark,
+menu,
+nav,
+object,
+ol,
+output,
+p,
+pre,
+q,
+ruby,
+s,
+samp,
+section,
+small,
+span,
+strike,
+strong,
+sub,
+summary,
+sup,
+table,
+tbody,
+td,
+tfoot,
+th,
+thead,
+time,
+tr,
+tt,
+u,
+ul,
+var,
+video {
     margin: 0;
     padding: 0;
     border: 0;
@@ -15,11 +93,18 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
     font: inherit;
     vertical-align: baseline;
 }
-
-
 /* HTML5 display-role reset for older browsers */
-
-article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
     display: block;
 }
 
@@ -27,15 +112,20 @@ body {
     line-height: 1;
 }
 
-ol, ul {
+ol,
+ul {
     list-style: none;
 }
 
-blockquote, q {
+blockquote,
+q {
     quotes: none;
 }
 
-blockquote:before, blockquote:after, q:before, q:after {
+blockquote:after,
+blockquote:before,
+q:after,
+q:before {
     content: '';
     content: none;
 }
@@ -44,10 +134,7 @@ table {
     border-collapse: collapse;
     border-spacing: 0;
 }
-
-
 /* Important part, as the javascript will check for this class */
-
 .header {
     width: 100%;
     /*position: fixed;*/
@@ -56,7 +143,7 @@ table {
     left: 0;
     border: none;
     background-color: rgba(255, 255, 255, 0.4);
-    box-shadow: 0px 3px 2px 0px rgba(50, 50, 50, 0.2);
+    box-shadow: 0 3px 2px 0 rgba(50, 50, 50, 0.2);
     margin-top: 20px;
     padding: 20px 0;
 }
@@ -73,7 +160,7 @@ ul {
 
 li {
     height: 20px;
-    margin-right: 0px;
+    margin-right: 0;
     border-right: 1px solid #1976D2;
     padding: 0 20px;
     display: inline;
@@ -93,7 +180,8 @@ li a {
     font-family: 'Lato';
 }
 
-li.active a, li a:hover {
+li a:hover,
+li.active a {
     color: #2196F3;
 }
 
