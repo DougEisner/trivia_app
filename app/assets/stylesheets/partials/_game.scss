@@ -61,12 +61,14 @@
     position: relative;
 }
 
-input[type="radio"], input[type="checkbox"] {
-  padding: 50px;
+input[type="checkbox"],
+input[type="radio"] {
+    padding: 30px;
 }
 
 label.ng-binding {
-    margin-right: 20px;
+    margin-right: 30px;
+    width: 100%;
 }
 
 .page-buttons {
@@ -108,4 +110,21 @@ label.ng-binding {
 
 .main-answer-container {
     width: 90%;
+}
+
+.get-question {
+    background: linear-gradient(135deg, rgba(0, 183, 234, 1) 0%, rgba(0, 158, 195, 1) 100%);
+    border-radius: 10px;
+    font-family: 'Baloo';
+    font-size: 25px;
+}
+
+.radio {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.answer-button {
+    // text-align:;
 }

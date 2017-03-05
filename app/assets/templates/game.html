@@ -15,7 +15,7 @@
                     {{question.question}}
                 </p>
             </div>
-            <div ng-repeat= "items in currentQuestion" class="trivia-answer-section">
+            <div ng-repeat="items in currentQuestion" class="trivia-answer-section">
                 <div ng-repeat="answer in items.answers " class="radio">
                     <input type="radio" name="answer" ng-click="getUserAnswer()" ng-value="answer" class="answer-button" />
                     <label for="answer">{{answer}}</label>
