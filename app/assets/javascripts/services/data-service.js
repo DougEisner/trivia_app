@@ -74,7 +74,6 @@
             put: putData,
             delete: deleteData,
             loginPost: loginPost
-            // currentUser: currentUser
         };
     }
 

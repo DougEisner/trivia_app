@@ -24,8 +24,14 @@
         </div>
     </div>
 
-    <div class="main-answer-container">
+    <div ng-repeat="items in allQuestions track by $index" class="main-answer-container">
         <section class="show-answer-container is-hidden">
+            <p>Question: {{items.question}} </p>
+            <p>Your Answer: {{items.userAnswer}}</p>
+            <p>Correct Answer: {{items.correctAnswer}}</p>
+            <p>Your Answer was: {{items.isUserAnswerCorrect}}</p>
+        </section>
+        <!-- <section class="show-answer-container is-hidden">
             <p>Question: How awesome is Samuel L Jackson?</p>
             <p>Your Answer: Pretty awesome.</p>
             <p>Correct Answer: Mutha Fing Awesome!</p>
@@ -69,12 +75,7 @@
             <p>Question: How awesome is Samuel L Jackson?</p>
             <p>Your Answer: Pretty awesome.</p>
             <p>Correct Answer: Mutha Fing Awesome!</p>
-        </section>
-        <section class="show-answer-container is-hidden">
-            <p>Question: How awesome is Samuel L Jackson?</p>
-            <p>Your Answer: Pretty awesome.</p>
-            <p>Correct Answer: Mutha Fing Awesome!</p>
-        </section>
+        </section> -->
 
 
     </div>

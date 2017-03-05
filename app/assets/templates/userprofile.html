@@ -1,6 +1,6 @@
 <section class="user-profile-main ng-controller="GameController as game"">
     <div class="userProfile">
-        <img src="https://s-media-cache-ak0.pinimg.com/736x/bf/b6/19/bfb6192a36bb33728209ac1040f2f574.jpg" class="user-avatar" />
+        <img ng-src="{{userInfo[0].image}}" class="user-avatar" />
         <nav class="user-nav-bar">
             <h1 ng-model="userInfo.nickname" class="user-name">{{userInfo[0].nickname}}</h1>
             <!-- {{inputInfo}} -->
