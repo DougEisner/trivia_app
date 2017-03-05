@@ -17,7 +17,7 @@
 
     // /** JQUERY Class Toggles, Adds, & Removals  ** //
 
-    $('.bummer').addClass('is-hidden');
+    // $('.bummer').addClass('is-hidden');
     $('.submit-answers').addClass('is-hidden');
     $('.question-counter').addClass('is-hidden');
 
@@ -45,7 +45,10 @@
                 $scope.currentQuestion.correctAnswer = response.data.questions[0].correct_answer;
                 $scope.currentQuestion.answers = response.data.questions[0].answers;
 
+
                 $scope.allQuestions.push($scope.currentQuestion);
+                $scope.currentQuestion = {};
+
                 console.log($scope.currentQuestion);
                 console.log($scope.allQuestions);
 
