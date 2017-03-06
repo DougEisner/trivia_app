@@ -1,42 +1,47 @@
 (function(ng) {
 
-  ng.module('TriviaApp').controller('GameController', function($state, localStorageService, $scope, DataRequestService, $q, UserService) {
+    ng.module('TriviaApp').controller('GameController', function($state, localStorageService, $scope, DataRequestService, $q, UserService) {
 
-      $scope.currentUser = UserService.getUser(); // gets the current user data from the service **USE THIS IN EVERY CONTROLLER**
+        $scope.currentUser = UserService.getUser(); // gets the current user data from the service **USE THIS IN EVERY CONTROLLER**
 
-      $scope.allQuestions = []; // stores all questions
-      $scope.correctCount = 0; // count for correct answers
-      $scope.incorrectCount = 0; // count for incorrect answers
-      $scope.count = ''; // count for page/ # of question user is on
-      $scope.currentQuestion = {}; // current question obj
-      $scope.questionCounter = 0; //**** IF COUNTER IS > 9 , show submit button, dispay none the container of questions
-      $scope.correctTotal = 0; // send to backend after each round
-      $scope.incorrectTotal = 0;
+        $scope.allQuestions = []; // stores all questions
+        $scope.correctCount = 0; // count for correct answers
+        $scope.incorrectCount = 0; // count for incorrect answers
+        $scope.count = ''; // count for page/ # of question user is on
+        $scope.currentQuestion = {}; // current question obj
+        $scope.questionCounter = 0; //**** IF COUNTER IS > 9 , show submit button, dispay none the container of questions
+        $scope.correctTotal = 0; // send to backend after each round
+        $scope.incorrectTotal = 0;
 
-    //   GAME LOGIC *///
+        //   GAME LOGIC *///
 
-    // /** JQUERY Class Toggles, Adds, & Removals  ** //
+        // /** JQUERY Class Toggles, Adds, & Removals  ** //
 
-    // $('.bummer').addClass('is-hidden');
-    $('.submit-answers').addClass('is-hidden');
-    $('.question-counter').addClass('is-hidden');
+        // $('.bummer').addClass('is-hidden');
+        $('.get-question').on('click', function() {
+            $('.trivia-question').addClass('is-hidden');
+            $('.radio').addClass('is-hidden');
+        });
 
-    $('.submit-answers').on('click', function() {
-        $('.show-answer-container').removeClass('is-hidden');
-        $('.play-again-button').removeClass('is-hidden');
-    });
+        $('.submit-answers').addClass('is-hidden');
+        $('.question-counter').addClass('is-hidden');
 
-    $('.play-again-button').on('click', function() {
-        $('.show-answer-container').addClass('is-hidden');
-        $('.play-again-button').addClass('is-hidden');
-    });
+        $('.submit-answers').on('click', function() {
+            $('.show-answer-container').removeClass('is-hidden');
+            $('.play-again-button').removeClass('is-hidden');
+        });
 
-    $scope.changeToGamePage = function() {
-        $state.go('TriviaParent.game');
-    };
+        $('.play-again-button').on('click', function() {
+            $('.show-answer-container').addClass('is-hidden');
+            $('.play-again-button').addClass('is-hidden');
+        });
+
+        $scope.changeToGamePage = function() {
+            $state.go('TriviaParent.game');
+        };
 
 
-    // /**  Get Question function ** //
+        // /**  Get Question function ** //
         $scope.getQuestion = function() {
             $q.when(DataRequestService.get('/questions/index')).then((response) => {
 
@@ -54,7 +59,7 @@
 
                 $scope.count = $scope.allQuestions.length;
 
-                if ($scope.count > 9 ) {
+                if ($scope.count > 9) {
                     $('.submit-answers').removeClass('is-hidden');
                     $('.get-question').toggleClass('is-hidden');
                 }
@@ -68,7 +73,7 @@
         //**  Get User Answer function  ** //
 
         $scope.getUserAnswer = function() {
-            if($("input[name='answer']").is(':checked')) {
+            if ($("input[name='answer']").is(':checked')) {
                 $scope.currentQuestion.userAnswer = $("input[name='answer']:checked").val();
                 console.log($scope.currentQuestion);
                 $scope.currentQuestion.isUserAnswerCorrect = $scope.checkAnswer();
@@ -82,14 +87,14 @@
 
         $scope.checkAnswer = function() {
             if ($scope.currentQuestion.userAnswer === $scope.currentQuestion.correctAnswer) {
-                    $scope.correctCount++;
-                    console.log($scope.correctCount + 'correct');
-                    return true;
-                } else {
-                    $scope.incorrectCount++;
-                    console.log($scope.incorrectCount + 'incorrect');
-                    return false;
-                }
+                $scope.correctCount++;
+                console.log($scope.correctCount + 'correct');
+                return true;
+            } else {
+                $scope.incorrectCount++;
+                console.log($scope.incorrectCount + 'incorrect');
+                return false;
+            }
         };
 
         //**  Next Question function  ** //
@@ -124,6 +129,6 @@
         //   };
 
 
-  });
+    });
 
 })(angular);
