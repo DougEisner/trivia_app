@@ -1,11 +1,12 @@
 (function(ng) {
     ng.module('TriviaApp').controller('LoginController', function($state, localStorageService, $scope, UserService, DataRequestService, $q) {
 
-        $scope.userInfo = UserService.getUser(); // stores the signup form submission
+        $scope.userInfo = function() {
+            $scope.currentUser = UserService.getUser(); // stores the signup form submission
+            return $scope.currentUser[0];
+        }
 
-
-        $scope.currentUser = [];
-
+        $scope.currentUser = {};
 
         $scope.loginInfo = {}; // stores the login form
 
@@ -18,11 +19,13 @@
                };
 
 
-        setAuthInfo = function(requestResonse) {
+        $scope.setAuthInfo = function(requestResponse) {
             // debugger;
-             $scope.authInfo.token = requestResonse.headers()["access-token"];
-             $scope.authInfo.client = requestResonse.headers().client;
-             $scope.authInfo.uid = requestResonse.headers().uid;
+             $scope.authInfo.token = requestResponse.headers()["access-token"];
+             $scope.authInfo.client = requestResponse.headers().client;
+             $scope.authInfo.uid = requestResponse.headers().uid;
+
+             UserService.setUserAuth($scope.authInfo);
         };
 
 
@@ -52,22 +55,36 @@
         // function for the login button for the signup form
         $scope.loginStuff = function() {
 
-            $scope.userInfo.push($scope.inputInfo);
-
+            // $scope.userInfo.push($scope.inputInfo);
 
             console.log('I submit the signup form');
 
-              $q.when(DataRequestService.post('/auth', $scope.userInfo[0])).then((response) => {
+              $q.when(DataRequestService.post('/auth', $scope.inputInfo)).then((response) => {
 
                      console.log(response);
-                     setAuthInfo(response);
+                     $scope.setAuthInfo(response);
 
-                     $scope.userInfo = response.data.data;
-                     UserService.currentUser.push($scope.userInfo);
+                     UserService.currentUser.push($scope.inputInfo);
 
-                     UserService.currentUser = response.data.data;
 
-                     console.log(UserService.currentUser);
+                     UserService.set(response.data.data);
+                    $scope.currentUser = UserService.getUser();
+
+
+                    //  UserService.currentUser = response.data.data;
+                    //  $scope.currentUser = response.data.data;
+
+                    //  UserService.set(response.data.data);
+                    //  $scope.currentUser = UserService.getUser();
+
+                    //  console.log($scope.currentUser);
+//
+                     // set UserService.currentuser into local storage
+
+                    //  $scope.userInfo = response.data.data;
+
+
+                    //  console.log(UserService.currentUser);
 
 
                  }).catch((error) => {
@@ -79,8 +96,9 @@
 
         $scope.logout = function() { // DELETE REQUEST
 
+            $scope.authInfo = UserService.getUserAuth();
 
-            $q.when(DataRequestService.delete('/auth/sign_out', $scope.authInfo)).then((response) => {
+            $q.when(DataRequestService.delete('/auth/sign_out', $scope.authInfo[0])).then((response) => {
                    console.log(response);
                }).catch((error) => {
                   //  console.log(error);
@@ -95,19 +113,21 @@
 
             $scope.loginInfo.email = $scope.inputInfo.email; // grab the email property and push in loginInfo array
             $scope.loginInfo.password = $scope.inputInfo.password; // grab the password property and push in loginInfo array
-            $scope.userInfo.push($scope.loginInfo);
+            // $scope.userInfo.push($scope.loginInfo);
+            // console.log($scope.loginInfo);
 
 
               $q.when(DataRequestService.loginPost('auth/sign_in', $scope.loginInfo)).then((response) => {
                   console.log(response);
 
-                  setAuthInfo(response);
 
-                  UserService.currentUser.push($scope.loginInfo);
+                 $scope.setAuthInfo(response);
+                //   UserService.currentUser.push($scope.loginInfo);
 
-                  UserService.currentUser = response.data.data;
+                UserService.set(response.data.data);
+                $scope.currentUser = UserService.getUser();
 
-                  $scope.userInfo = $scope.currentUser;
+                //   $scope.userInfo = $scope.response.data.data;
 
                 console.log(userInfo);
 
