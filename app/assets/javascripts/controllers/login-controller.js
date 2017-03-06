@@ -10,6 +10,21 @@
         $scope.loginInfo = {}; // stores the login form
 
 
+        //collect the auth info
+               $scope.authInfo = {
+                 token: '',
+                 client: '',
+                 uid: ''
+               };
+
+
+        setAuthInfo = function(requestResonse) {
+            // debugger;
+             $scope.authInfo.token = requestResonse.headers()["access-token"];
+             $scope.authInfo.client = requestResonse.headers().client;
+             $scope.authInfo.uid = requestResonse.headers().uid;
+        };
+
 
         // events for toggling login and signup
         $('.toggle-link').on('click', function() {
@@ -45,6 +60,7 @@
               $q.when(DataRequestService.post('/auth', $scope.userInfo[0])).then((response) => {
 
                      console.log(response);
+                     setAuthInfo(response);
 
                      $scope.userInfo = response.data.data;
                      UserService.currentUser.push($scope.userInfo);
@@ -64,7 +80,7 @@
         $scope.logout = function() { // DELETE REQUEST
 
 
-            $q.when(DataRequestService.delete('/auth/sign_out')).then((response) => {
+            $q.when(DataRequestService.delete('/auth/sign_out', $scope.authInfo)).then((response) => {
                    console.log(response);
                }).catch((error) => {
                   //  console.log(error);
@@ -85,10 +101,13 @@
               $q.when(DataRequestService.loginPost('auth/sign_in', $scope.loginInfo)).then((response) => {
                   console.log(response);
 
+                  setAuthInfo(response);
 
-                  $scope.currentUser = response.data.data;
+                  UserService.currentUser.push($scope.loginInfo);
 
-                  userInfo = $scope.currentUser;
+                  UserService.currentUser = response.data.data;
+
+                  $scope.userInfo = $scope.currentUser;
 
                 console.log(userInfo);
 

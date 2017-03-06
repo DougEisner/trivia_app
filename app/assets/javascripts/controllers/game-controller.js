@@ -43,6 +43,7 @@
 
         // /**  Get Question function ** //
         $scope.getQuestion = function() {
+            $scope.currentQuestion = {};
             $q.when(DataRequestService.get('/questions/index')).then((response) => {
 
                 $scope.currentQuestion.questionObj = response.data.questions[0]; // might not need this extra obj?
@@ -52,7 +53,6 @@
 
 
                 $scope.allQuestions.push($scope.currentQuestion);
-                $scope.currentQuestion = {};
 
                 console.log($scope.currentQuestion);
                 console.log($scope.allQuestions);
@@ -86,6 +86,8 @@
         //**  Check User Answer function  ** //
 
         $scope.checkAnswer = function() {
+            console.log($scope.currentQuestion.userAnswer);
+            console.log($scope.currentQuestion.correctAnswer);
             if ($scope.currentQuestion.userAnswer === $scope.currentQuestion.correctAnswer) {
                 $scope.correctCount++;
                 console.log($scope.correctCount + 'correct');

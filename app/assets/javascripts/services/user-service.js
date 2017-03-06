@@ -1,6 +1,6 @@
 (function(ng) {
   ng.module('TriviaApp').service('UserService', function() {
-      let currentUser = []; 
+      let currentUser = [];
       function getUser() {
           return currentUser;
       }

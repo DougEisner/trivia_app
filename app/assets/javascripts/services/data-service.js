@@ -58,13 +58,14 @@
             });
         }
 
-        function deleteData(url) {
+        function deleteData(url, dataObj) {
             return $http({
                 method: 'DELETE',
                 url: url,
                 headers: {
                     "content-type": "application/json;charset=utf-8"
-                }
+                },
+                data: dataObj
             });
         }
 
