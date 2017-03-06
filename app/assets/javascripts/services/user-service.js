@@ -1,5 +1,5 @@
 (function(ng) {
-  ng.module('TriviaApp').service('UserService', function() {
+  ng.module('TriviaApp').service('UserService', function(localStorageService) {
       let currentUser = [];
       let userAuth = [];
 
@@ -12,8 +12,10 @@
       }
 
       function getUser() {
+          currentUser = localStorageService.get('userInfo') || [];
           return currentUser;
       }
+
       function setUser(user) {
           currentUser.push(user);
       }

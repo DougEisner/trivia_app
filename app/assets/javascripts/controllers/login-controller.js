@@ -2,9 +2,11 @@
     ng.module('TriviaApp').controller('LoginController', function($state, localStorageService, $scope, UserService, DataRequestService, $q) {
 
         $scope.userInfo = function() {
-            $scope.currentUser = UserService.getUser(); // stores the signup form submission
-            return $scope.currentUser[0];
-        }
+            let user = UserService.getUser();
+            $scope.setInfo(user);
+            $scope.currentUser = user; // stores the signup form submission
+            return $scope.currentUser;
+        };
 
         $scope.currentUser = {};
 
@@ -13,7 +15,7 @@
 
         //collect the auth info
                $scope.authInfo = {
-                 token: '',
+                 'access-token': '',
                  client: '',
                  uid: ''
                };
@@ -21,7 +23,7 @@
 
         $scope.setAuthInfo = function(requestResponse) {
             // debugger;
-             $scope.authInfo.token = requestResponse.headers()["access-token"];
+             $scope.authInfo['access-token'] = requestResponse.headers()["access-token"];
              $scope.authInfo.client = requestResponse.headers().client;
              $scope.authInfo.uid = requestResponse.headers().uid;
 
@@ -55,14 +57,15 @@
         // function for the login button for the signup form
         $scope.loginStuff = function() {
 
-            // $scope.userInfo.push($scope.inputInfo);
-
             console.log('I submit the signup form');
 
               $q.when(DataRequestService.post('/auth', $scope.inputInfo)).then((response) => {
 
                      console.log(response);
                      $scope.setAuthInfo(response);
+
+                     $scope.setInfo($scope.inputInfo);
+                     $scope.inputInfo = $scope.getInfo();
 
                      UserService.currentUser.push($scope.inputInfo);
 
@@ -71,13 +74,6 @@
                     $scope.currentUser = UserService.getUser();
 
 
-                    //  UserService.currentUser = response.data.data;
-                    //  $scope.currentUser = response.data.data;
-
-                    //  UserService.set(response.data.data);
-                    //  $scope.currentUser = UserService.getUser();
-
-                    //  console.log($scope.currentUser);
 //
                      // set UserService.currentuser into local storage
 
@@ -88,7 +84,7 @@
 
 
                  }).catch((error) => {
-                    //  console.log(error);
+                     console.log(error);
                  });
 
                  $state.go('TriviaParent.profile');
@@ -101,24 +97,27 @@
             $q.when(DataRequestService.delete('/auth/sign_out', $scope.authInfo[0])).then((response) => {
                    console.log(response);
                }).catch((error) => {
-                  //  console.log(error);
+                   console.log(error);
                });
         };
 
 
-        // function for login button for the initial login
+        // function for login button for existing user
         $scope.submit = function() {
 
             // console.log('I submit email & password');
 
-            $scope.loginInfo.email = $scope.inputInfo.email; // grab the email property and push in loginInfo array
-            $scope.loginInfo.password = $scope.inputInfo.password; // grab the password property and push in loginInfo array
-            // $scope.userInfo.push($scope.loginInfo);
-            // console.log($scope.loginInfo);
-
+            $scope.loginInfo.email = $scope.inputInfo.email;
+            $scope.loginInfo.password = $scope.inputInfo.password;
 
               $q.when(DataRequestService.loginPost('auth/sign_in', $scope.loginInfo)).then((response) => {
                   console.log(response);
+
+                  $scope.inputInfo.nickname = response.data.data.nickname;
+
+                  console.log('logged in, set info to', $scope.inputInfo);
+                  $scope.setInfo($scope.inputInfo);
+                  $scope.inputInfo = $scope.getInfo();
 
 
                  $scope.setAuthInfo(response);
@@ -135,6 +134,15 @@
                     //  console.log(error);
                  });
                  $state.go('TriviaParent.profile');
+        };
+
+        $scope.setInfo = function(userInfo) {
+            console.log('set info', userInfo);
+            localStorageService.set('userInfo', userInfo);
+        };
+
+        $scope.getInfo = function() {
+            return localStorageService.get('userInfo') || [];
         };
 
     });
