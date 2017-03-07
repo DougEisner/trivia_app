@@ -24,7 +24,7 @@
             }).state('TriviaParent.leader', {
                 url: 'leaderboard',
                 templateUrl: 'leader.html',
-                controller: "LeaderController as leader"
+                controller: "GameController as game"
             }).state('TriviaParent.logout', {
                 url: 'logout',
                 templateUrl: 'login.html',

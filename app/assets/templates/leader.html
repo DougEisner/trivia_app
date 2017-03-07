@@ -1,13 +1,13 @@
 <section class="user-leader-main">
 
-    <div class="leader-board">
+    <div ng-repeat="score in allScores" class="leader-board">
         <h1 class="board-header"> Leader Board</h1>
         <div class="single-user-board">
-            <p>1</p>
-            <p>Amiee</p>
+            <p>{{score.game_score}}</p>
+            <p></p>
             <p>9500</p>
         </div>
-        <div class="single-user-board">
+        <!-- <div class="single-user-board">
             <p>2</p>
             <p>Doody Doo</p>
             <p>7320</p>
@@ -26,7 +26,7 @@
             <p>5</p>
             <p>Turntalitle</p>
             <p>1210</p>
-        </div>
+        </div> -->
     </div>
     <input ng-click="changeToGamePage()" type="submit" class="play-again-button" value="Play Again" />
 </section>

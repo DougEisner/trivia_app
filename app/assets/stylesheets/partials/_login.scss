@@ -1,3 +1,5 @@
+/* http://codepen.io/milliomola/pen/kXpOLO */
+
 .user-card {
 	width: 350px;
 	height: 350px;
@@ -39,7 +41,6 @@ input:focus {
 	position: absolute;
 	top: 0;
 	right: 0;
-	// width: 100%;
 	height: calc(100% - 25px);
 	background: #fff;
 	border-radius: 5px;
@@ -94,6 +95,7 @@ input:focus {
 	line-height: 10px;
 	color: #555;
 }
+
 /**** footer *****/
 .user-card .footer {
 	position: absolute;
@@ -110,6 +112,7 @@ input:focus {
 .footer a {
 	color: #03b3b5;
 }
+
 @keyframes heart {
 	0% {
 		transform: scale(1, 1);

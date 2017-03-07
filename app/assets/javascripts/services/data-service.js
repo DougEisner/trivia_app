@@ -29,10 +29,18 @@
                 headers: {
                     "content-type": "application/json;charset=utf-8"
                 },
-                data: {
-                    'score[game_score]': dataObj.game_score,
-                    'score[user_id]': dataObj.user_id
-                }
+                data: dataObj
+            });
+        }
+
+        function getScores(url) {
+            return $http({
+                method: 'GET',
+                url: url,
+                dataType: "json",
+                headers: {
+                    "content-type": "application/json;charset=utf-8"
+                },
             });
         }
 
@@ -75,7 +83,8 @@
             put: putData,
             delete: deleteData,
             loginPost: loginPost,
-            postScores: postScores
+            postScores: postScores,
+            getScores: getScores
         };
     }
 

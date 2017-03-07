@@ -1,14 +1,14 @@
 <section class="user-game-main">
     <div class="trivia-main">
         <span class="question-counter"> Question #{{count}}</span>
-        <button ng-click="postScores()">Test</button>
+        <button type="submit" ng-click="postScores()">Test</button>
+        <button type="submit" ng-click="getScores()">Get Scores</button>
 
         <div class="main-game-section">
 
             <form type="submit" class="page-buttons">
                 <input type="submit" ng-click="getQuestion()" class="get-question" value="Get Question">
-                <!-- <input type="submit" class="bummer" ng-click="nextQuestion()" value="Next Question"> -->
-                <input type="submit" class="submit-answers" value="Submit">
+                <input ng-click="postScores()" type="submit" class="submit-answers" value="Submit">
             </form>
             <div ng-repeat="question in allQuestions" class="trivia-question-section">
 
@@ -32,53 +32,6 @@
             <p>Correct Answer: {{items.correctAnswer}}</p>
             <p>Your Answer was: {{items.isUserAnswerCorrect}}</p>
         </section>
-        <!-- <section class="show-answer-container is-hidden">
-            <p>Question: How awesome is Samuel L Jackson?</p>
-            <p>Your Answer: Pretty awesome.</p>
-            <p>Correct Answer: Mutha Fing Awesome!</p>
-        </section>
-        <section class="show-answer-container is-hidden">
-            <p>Question: How awesome is Samuel L Jackson?</p>
-            <p>Your Answer: Pretty awesome.</p>
-            <p>Correct Answer: Mutha Fing Awesome!</p>
-        </section>
-        <section class="show-answer-container is-hidden">
-            <p>Question: How awesome is Samuel L Jackson?</p>
-            <p>Your Answer: Pretty awesome.</p>
-            <p>Correct Answer: Mutha Fing Awesome!</p>
-        </section>
-        <section class="show-answer-container is-hidden">
-            <p>Question: How awesome is Samuel L Jackson?</p>
-            <p>Your Answer: Pretty awesome.</p>
-            <p>Correct Answer: Mutha Fing Awesome!</p>
-        </section>
-        <section class="show-answer-container is-hidden">
-            <p>Question: How awesome is Samuel L Jackson?</p>
-            <p>Your Answer: Pretty awesome.</p>
-            <p>Correct Answer: Mutha Fing Awesome!</p>
-        </section>
-        <section class="show-answer-container is-hidden">
-            <p>Question: How awesome is Samuel L Jackson?</p>
-            <p>Your Answer: Pretty awesome.</p>
-            <p>Correct Answer: Mutha Fing Awesome!</p>
-        </section>
-        <section class="show-answer-container is-hidden">
-            <p>Question: How awesome is Samuel L Jackson?</p>
-            <p>Your Answer: Pretty awesome.</p>
-            <p>Correct Answer: Mutha Fing Awesome!</p>
-        </section>
-        <section class="show-answer-container is-hidden">
-            <p>Question: How awesome is Samuel L Jackson?</p>
-            <p>Your Answer: Pretty awesome.</p>
-            <p>Correct Answer: Mutha Fing Awesome!</p>
-        </section>
-        <section class="show-answer-container is-hidden">
-            <p>Question: How awesome is Samuel L Jackson?</p>
-            <p>Your Answer: Pretty awesome.</p>
-            <p>Correct Answer: Mutha Fing Awesome!</p>
-        </section> -->
-
-
     </div>
     <input ng-click="changeToGamePage()" type="submit" class="play-again-button is-hidden" value="Play Again" />
 </section>

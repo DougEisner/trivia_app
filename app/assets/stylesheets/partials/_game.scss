@@ -7,7 +7,6 @@
     display: flex;
     flex-flow: column;
     height: 80%;
-    // justify-content: center;
     margin: 130px;
     width: 80%;
 }
@@ -63,7 +62,7 @@
 
 input[type="checkbox"],
 input[type="radio"] {
-    padding: 30px;
+    padding: 3px;
 }
 
 label.ng-binding {
@@ -105,7 +104,6 @@ label.ng-binding {
     font-size: 20px;
     text-align: center;
     margin: 15px;
-    // width: 130%;
 }
 
 .main-answer-container {
@@ -123,8 +121,4 @@ label.ng-binding {
     align-items: center;
     display: flex;
     justify-content: center;
-}
-
-.answer-button {
-    // text-align:;
 }
