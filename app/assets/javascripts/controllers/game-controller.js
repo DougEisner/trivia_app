@@ -2,18 +2,27 @@
 
     ng.module('TriviaApp').controller('GameController', function($state, localStorageService, $scope, DataRequestService, $q, UserService) {
 
-        $scope.currentUser = UserService.getUser(); // gets the current user data from the service **USE THIS IN EVERY CONTROLLER**
+
+        $scope.userInfo = function() {
+            let user = UserService.getUser();
+            $scope.setInfo(user);
+            $scope.currentUser = user; // stores the signup form submission
+            console.log($scope.currentUser);
+            return $scope.currentUser;
+        };
 
         $scope.allQuestions = []; // stores all questions
         $scope.correctCount = 0; // count for correct answers
         $scope.incorrectCount = 0; // count for incorrect answers
         $scope.count = ''; // count for page/ # of question user is on
         $scope.currentQuestion = {}; // current question obj
-        $scope.questionCounter = 0; //**** IF COUNTER IS > 9 , show submit button, dispay none the container of questions
-        $scope.correctTotal = 0; // send to backend after each round
-        $scope.incorrectTotal = 0;
+        $scope.questionCounter = 0;
+        $scope.true = 'correct';
+        $scope.false = 'incorrect';
+        $scope.scoreObj = {};
 
-        //   GAME LOGIC *///
+        let user = UserService.getUser();
+
 
         // /** JQUERY Class Toggles, Adds, & Removals  ** //
 
@@ -29,6 +38,7 @@
         $('.submit-answers').on('click', function() {
             $('.show-answer-container').removeClass('is-hidden');
             $('.play-again-button').removeClass('is-hidden');
+            $scope.postScores();
         });
 
         $('.play-again-button').on('click', function() {
@@ -45,8 +55,8 @@
         $scope.getQuestion = function() {
             $scope.currentQuestion = {};
             $q.when(DataRequestService.get('/questions/index')).then((response) => {
-
-                $scope.currentQuestion.questionObj = response.data.questions[0]; // might not need this extra obj?
+                $('.question-counter').removeClass('is-hidden');
+                $scope.currentQuestion.questionObj = response.data.questions[0]; // might not need
                 $scope.currentQuestion.question = response.data.questions[0].question;
                 $scope.currentQuestion.correctAnswer = response.data.questions[0].correct_answer;
                 $scope.currentQuestion.answers = response.data.questions[0].answers;
@@ -54,7 +64,7 @@
 
                 $scope.allQuestions.push($scope.currentQuestion);
 
-                console.log($scope.currentQuestion);
+
                 console.log($scope.allQuestions);
 
                 $scope.count = $scope.allQuestions.length;
@@ -90,46 +100,41 @@
             console.log($scope.currentQuestion.correctAnswer);
             if ($scope.currentQuestion.userAnswer === $scope.currentQuestion.correctAnswer) {
                 $scope.correctCount++;
-                console.log($scope.correctCount + 'correct');
-                return true;
+                return $scope.true;
             } else {
                 $scope.incorrectCount++;
-                console.log($scope.incorrectCount + 'incorrect');
-                return false;
+                return $scope.false;
             }
         };
 
         //**  Next Question function  ** //
 
         $scope.nextQuestion = function() {
-            // $scope.getQuestion();
             $scope.getUserAnswer();
             $scope.checkAnswer();
         };
 
 
 
-        // $scope.processStats = function() { // ng-submit = processStats();
-        //
-        //       for (let i = 0; i < allQuestions.length; i++ ) {
-        //           $scope.correctTotal = $scope.correctCount;
-        //           $scope.incorrectTotal = $scope.incorrectCount;
-        //
-        //         //   $scope.currentUser.userTotal = $scope.correctTotal;
-        //         //   $scope.currentUser.userIncorrect = $scope.incorrectTotal;
-        //       }
-        //
-        //     //   console.log($scope.currentUser);
-        //
-        //       $q.when(DataRequestService.post('/scores, ')).then((response) => {
-        //
-        //
-        //       }).catch((error) => {
-        //           console.log(error);
-        //       });
-        //     //   state.go
-        //   };
+        $scope.postScores = function() {
+            console.log('in');
+            $scope.getLocalStorage = localStorageService.get('userInfo');
+            let id = $scope.getLocalStorage.id;
+            $scope.scoreObj = {
+                user_id: $scope.getLocalStorage.id,
+                game_score: $scope.correctCount
+            };
 
+
+            $q.when(DataRequestService.postScores('/scores', $scope.scoreObj)).then((response) => {
+                // localStorageService.set('score', $scope.scoreObj);
+                console.log(response);
+
+                // $state.go('gameParent.leader');
+            }).catch((error) => {
+                console.log(error);
+            });
+        };
 
     });
 

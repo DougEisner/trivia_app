@@ -30,7 +30,7 @@
                     "content-type": "application/json;charset=utf-8"
                 },
                 data: {
-                    'score[game_score]': datObj.score,
+                    'score[game_score]': dataObj.game_score,
                     'score[user_id]': dataObj.user_id
                 }
             });
@@ -44,7 +44,7 @@
                 headers: {
                     "content-type": "application/json;charset=utf-8"
                 },
-                data: { // JSON.stringify????
+                data: {
                     email: dataObj.email,
                     password: dataObj.password
                 }
@@ -74,7 +74,8 @@
             post: postData,
             put: putData,
             delete: deleteData,
-            loginPost: loginPost
+            loginPost: loginPost,
+            postScores: postScores
         };
     }
 

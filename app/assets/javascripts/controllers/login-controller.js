@@ -4,30 +4,29 @@
         $scope.userInfo = function() {
             let user = UserService.getUser();
             $scope.setInfo(user);
-            $scope.currentUser = user; // stores the signup form submission
+            $scope.currentUser = user;
             return $scope.currentUser;
         };
 
         $scope.currentUser = {};
 
-        $scope.loginInfo = {}; // stores the login form
+        $scope.loginInfo = {};
 
 
         //collect the auth info
-               $scope.authInfo = {
-                 'access-token': '',
-                 client: '',
-                 uid: ''
-               };
+        $scope.authInfo = {
+            'access-token': '',
+            client: '',
+            uid: ''
+        };
 
 
         $scope.setAuthInfo = function(requestResponse) {
-            // debugger;
-             $scope.authInfo['access-token'] = requestResponse.headers()["access-token"];
-             $scope.authInfo.client = requestResponse.headers().client;
-             $scope.authInfo.uid = requestResponse.headers().uid;
+            $scope.authInfo['access-token'] = requestResponse.headers()["access-token"];
+            $scope.authInfo.client = requestResponse.headers().client;
+            $scope.authInfo.uid = requestResponse.headers().uid;
 
-             UserService.setUserAuth($scope.authInfo);
+            UserService.setUserAuth($scope.authInfo);
         };
 
 
@@ -44,6 +43,9 @@
             $('.signup').addClass('is-hidden');
         });
 
+        $('.start-game-button').on('click', function() {
+            $state.go('TriviaParent.game');
+        });
 
 
         // stores all of user's info needed
@@ -57,93 +59,82 @@
         // function for the login button for the signup form
         $scope.loginStuff = function() {
 
-            console.log('I submit the signup form');
+            $q.when(DataRequestService.post('/auth', $scope.inputInfo)).then((response) => {
 
-              $q.when(DataRequestService.post('/auth', $scope.inputInfo)).then((response) => {
+                console.log(response);
+                $scope.setAuthInfo(response);
 
-                     console.log(response);
-                     $scope.setAuthInfo(response);
+                $scope.inputInfo.id = response.data.data.id;
 
-                     $scope.setInfo($scope.inputInfo);
-                     $scope.inputInfo = $scope.getInfo();
+                $scope.setInfo($scope.inputInfo);
+                $scope.inputInfo = $scope.getInfo();
 
-                     UserService.currentUser.push($scope.inputInfo);
-
-
-                     UserService.set(response.data.data);
-                    $scope.currentUser = UserService.getUser();
+                UserService.set(response.data.data);
+                $scope.currentUser = UserService.getUser();
 
 
-//
-                     // set UserService.currentuser into local storage
 
-                    //  $scope.userInfo = response.data.data;
+            }).catch((error) => {
+                console.log(error);
+            });
 
-
-                    //  console.log(UserService.currentUser);
-
-
-                 }).catch((error) => {
-                     console.log(error);
-                 });
-
-                 $state.go('TriviaParent.profile');
+            $state.go('TriviaParent.profile');
         };
 
         $scope.logout = function() { // DELETE REQUEST
 
             $scope.authInfo = UserService.getUserAuth();
+            console.log($scope.authInfo);
 
             $q.when(DataRequestService.delete('/auth/sign_out', $scope.authInfo[0])).then((response) => {
-                   console.log(response);
-               }).catch((error) => {
-                   console.log(error);
-               });
+                console.log(response);
+
+
+            }).catch((error) => {
+                console.log(error);
+            });
         };
 
 
         // function for login button for existing user
         $scope.submit = function() {
 
-            // console.log('I submit email & password');
-
             $scope.loginInfo.email = $scope.inputInfo.email;
             $scope.loginInfo.password = $scope.inputInfo.password;
 
-              $q.when(DataRequestService.loginPost('auth/sign_in', $scope.loginInfo)).then((response) => {
-                  console.log(response);
+            $q.when(DataRequestService.loginPost('auth/sign_in', $scope.loginInfo)).then((response) => {
+                console.log(response);
 
-                  $scope.inputInfo.nickname = response.data.data.nickname;
+                $scope.inputInfo.nickname = response.data.data.nickname;
+                $scope.inputInfo.id = response.data.data.id;
+                $scope.inputInfo.image = response.data.data.image;
 
-                  console.log('logged in, set info to', $scope.inputInfo);
-                  $scope.setInfo($scope.inputInfo);
-                  $scope.inputInfo = $scope.getInfo();
+                console.log('logged in, set info to', $scope.inputInfo);
 
+                $scope.setInfo($scope.inputInfo);
+                $scope.inputInfo = $scope.getInfo();
 
-                 $scope.setAuthInfo(response);
-                //   UserService.currentUser.push($scope.loginInfo);
+                $scope.setAuthInfo(response);
 
                 UserService.set(response.data.data);
                 $scope.currentUser = UserService.getUser();
 
-                //   $scope.userInfo = $scope.response.data.data;
 
-                console.log(userInfo);
-
-                 }).catch((error) => {
-                    //  console.log(error);
-                 });
-                 $state.go('TriviaParent.profile');
+            }).catch((error) => {
+                console.log(error);
+            });
+            $state.go('TriviaParent.profile');
         };
 
+
         $scope.setInfo = function(userInfo) {
-            console.log('set info', userInfo);
             localStorageService.set('userInfo', userInfo);
         };
 
         $scope.getInfo = function() {
             return localStorageService.get('userInfo') || [];
         };
+
 
     });
 
