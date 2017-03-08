@@ -5,7 +5,7 @@
             $urlRouterProvider.otherwise('/');
             $urlRouterProvider.when('/', '/' + 'login');
 
-            $stateProvider.state('TriviaParent', { // default home url
+            $stateProvider.state('TriviaParent', {
                 url: '/',
                 abstract: true,
                 template: '<ui-view></ui-view>',

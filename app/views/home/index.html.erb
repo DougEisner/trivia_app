@@ -10,7 +10,7 @@
 
         <header class="header" role="banner">
                 <h1>Trivia Quizz</h1>
-            <nav>
+            <nav ng-show="getCurrentUser().email">
                 <ul>
                     <li class="active"><a ui-sref="TriviaParent.profile">Profile</a>
                     </li>

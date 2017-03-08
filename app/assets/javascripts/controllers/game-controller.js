@@ -2,21 +2,13 @@
 
     ng.module('TriviaApp').controller('GameController', function($state, localStorageService, $scope, DataRequestService, $q, UserService) {
 
-
-// $scope.tester = ['stuff', 'more stuff'];
-
         $scope.userInfo = function() {
             let user = UserService.getUser();
             $scope.setInfo(user);
             $scope.currentUser = user;
-            console.log($scope.currentUser);
             return $scope.currentUser;
         };
 
-
-        $scope.$watch('allScores', function() {
-            console.log('allScores has changed');
-        });
 
         $scope.allQuestions = [];
         $scope.userScores = '';
@@ -25,7 +17,6 @@
         $scope.incorrectCount = 0;
         $scope.count = '';
         $scope.currentQuestion = {};
-        $scope.questionCounter = 0;
         $scope.true = 'correct';
         $scope.false = 'incorrect';
         $scope.scoreObj = {};
@@ -36,27 +27,26 @@
 
         // /** JQUERY Class Toggles, Adds, & Removals  ** //
 
-        // $('.bummer').addClass('is-hidden');
+        $('.submit-answers, .question-counter').addClass('is-hidden');
+
+
         $('.get-question').on('click', function() {
-            $('.trivia-question').addClass('is-hidden');
-            $('.radio').addClass('is-hidden');
+            $('.trivia-question, .radio').addClass('is-hidden');
         });
 
-        $('.submit-answers').addClass('is-hidden');
-        $('.question-counter').addClass('is-hidden');
 
         $('.submit-answers').on('click', function() {
-            $('.show-answer-container').removeClass('is-hidden');
-            $('.play-again-button').removeClass('is-hidden');
+            $('.show-answer-container, .play-again-button').removeClass('is-hidden');
         });
+
 
         $('.play-again-button').on('click', function() {
-            $('.show-answer-container').addClass('is-hidden');
-            $('.play-again-button').addClass('is-hidden');
+            $('.show-answer-container, .play-again-button').addClass('is-hidden');
         });
 
+
         $scope.changeToGamePage = function() {
-            $state.go('TriviaParent.game');
+            $state.reload();
         };
 
 
@@ -74,9 +64,6 @@
 
                 $scope.allQuestions.push($scope.currentQuestion);
 
-
-                // console.log($scope.allQuestions);
-
                 $scope.count = $scope.allQuestions.length;
 
                 if ($scope.count > 9) {
@@ -85,7 +72,7 @@
                 }
 
             }).catch((error) => {
-                console.log(error);
+                // console.log(error);
             });
         };
 
@@ -95,7 +82,6 @@
         $scope.getUserAnswer = function() {
             if ($("input[name='answer']").is(':checked')) {
                 $scope.currentQuestion.userAnswer = $("input[name='answer']:checked").val();
-                // console.log($scope.currentQuestion);
                 $scope.currentQuestion.isUserAnswerCorrect = $scope.checkAnswer();
             } else {
                 $("input[name='answer']").attr('checked', false);
@@ -106,8 +92,6 @@
         //**  Check User Answer function  ** //
 
         $scope.checkAnswer = function() {
-            // console.log($scope.currentQuestion.userAnswer);
-            // console.log($scope.currentQuestion.correctAnswer);
             if ($scope.currentQuestion.userAnswer === $scope.currentQuestion.correctAnswer) {
                 $scope.correctCount++;
                 return $scope.true;
@@ -127,9 +111,7 @@
         //**  Post Scores function  ** //
 
         $scope.postScores = function() {
-            console.log('in');
             $scope.getLocalStorage = localStorageService.get('userInfo');
-            console.log($scope.getLocalStorage.id);
             $scope.scoreObj = {
                 'score': {
                    user_id: $scope.getLocalStorage.id,
@@ -137,52 +119,31 @@
                 }
             };
 
-            console.log($scope.scoreObj);
-
 
             $q.when(DataRequestService.postScores('/scores', $scope.scoreObj)).then((response) => {
 
                 localStorageService.set('score', $scope.scoreObj);
 
-                console.log(response);
-
                 $scope.userScores = response.data.score;
                 $scope.allUserScores.push($scope.userScores);
-                console.log('user scores ->', $scope.userScores);
-                // console.log($scope.allUserScores);
 
-
-
-                // $state.go('TriviaParent.leader');
             }).catch((error) => {
-                console.log(error);
+                // console.log(error);
             });
         };
 
 
+        //**  Get Scores function  ** //
 
         $scope.getScores = function() {
 
             $q.when(DataRequestService.getScores('/scores')).then((response) => {
 
-                // localStorageService.set('score', $scope.scoreObj);
-
-                console.log(response.data.scores);
-
                 $scope.allScores = response.data.scores;
-                console.log($scope.allScores);
 
 
-                // $scope.userScores = response.data.score;
-                // $scope.allUserScores.push($scope.userScores);
-                // console.log('user scores ->', $scope.userScores);
-                // // console.log($scope.allUserScores);
-
-
-
-                $state.go('TriviaParent.leader');
             }).catch((error) => {
-                console.log(error);
+                // console.log(error);
             });
 
         };

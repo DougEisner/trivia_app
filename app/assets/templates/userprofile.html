@@ -1,15 +1,14 @@
-<section class="user-profile-main ng-controller="GameController as game"">
+<section class="user-profile-main" ng-controller="GameController as game">
     <div class="userProfile">
         <img ng-src="{{userInfo().image}}" class="user-avatar" />
         <nav class="user-nav-bar">
             <h1>{{userInfo().nickname}}</h1>
-            <!-- {{inputInfo}} -->
         </nav>
     </div>
-    <div ng-controller="GameController as game" class="user-stats">
+    <div class="user-stats">
         <h1>Statistics</h1>
-        <p>{{correctCount}}</p>
-        <p>Incorrect: 230</p>
+        <p>Correct: 25</p>
+        <p>Incorrect: 10</p>
         <input type="submit" class="start-game-button" value="Start Game">
     </div>
 </section>

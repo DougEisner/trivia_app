@@ -60,13 +60,8 @@
     position: relative;
 }
 
-input[type="checkbox"],
-input[type="radio"] {
-    padding: 3px;
-}
-
 label.ng-binding {
-    margin-right: 30px;
+    font-size: 14px;
     width: 100%;
 }
 
@@ -88,6 +83,7 @@ label.ng-binding {
     font-family: 'Baloo';
     font-size: 20px;
     width: 100%;
+    cursor: pointer;
 }
 
 .question-counter {
@@ -115,6 +111,7 @@ label.ng-binding {
     border-radius: 10px;
     font-family: 'Baloo';
     font-size: 25px;
+    cursor: pointer;
 }
 
 .radio {

@@ -1,6 +1,16 @@
 (function(ng) {
     ng.module('TriviaApp').controller('LoginController', function($state, localStorageService, $scope, UserService, DataRequestService, $q) {
 
+
+        $scope.getInfo = function() {
+            return localStorageService.get('userInfo') || [];
+        };
+
+        $scope.getCurrentUser = function() {
+            return $scope.getInfo();
+        };
+
+
         $scope.userInfo = function() {
             let user = UserService.getUser();
             $scope.setInfo(user);
@@ -11,7 +21,6 @@
         $scope.currentUser = {};
 
         $scope.loginInfo = {};
-
 
         //collect the auth info
         $scope.authInfo = {
@@ -32,11 +41,7 @@
 
         // events for toggling login and signup
         $('.toggle-link').on('click', function() {
-            $('.image-url').toggleClass('is-hidden');
-            $('.username').toggleClass('is-hidden');
-            $('.toggle-link').toggleClass('is-hidden');
-            $('.signup').toggleClass('is-hidden');
-            $('.login').toggleClass('is-hidden');
+            $('.image-url, .username, .toggle-link, .signup, .login').toggleClass('is-hidden');
         });
 
         $('.signup').on('click', function() {
@@ -57,11 +62,9 @@
         };
 
         // function for the login button for the signup form
-        $scope.loginStuff = function() {
+        $scope.signUp = function() {
 
             $q.when(DataRequestService.post('/auth', $scope.inputInfo)).then((response) => {
-
-                console.log(response);
                 $scope.setAuthInfo(response);
 
                 $scope.inputInfo.id = response.data.data.id;
@@ -75,41 +78,42 @@
 
 
             }).catch((error) => {
-                console.log(error);
+                // console.log(error);
             });
 
             $state.go('TriviaParent.profile');
         };
 
-        $scope.logout = function() { // DELETE REQUEST
+
+        // function for logging out user
+
+        $scope.logout = function() {
 
             $scope.authInfo = UserService.getUserAuth();
-            console.log($scope.authInfo);
+            localStorageService.clearAll();
 
             $q.when(DataRequestService.delete('/auth/sign_out', $scope.authInfo[0])).then((response) => {
-                console.log(response);
 
 
             }).catch((error) => {
-                console.log(error);
+                // console.log(error);
             });
         };
 
 
         // function for login button for existing user
-        $scope.submit = function() {
+        $scope.loginUser = function() {
 
             $scope.loginInfo.email = $scope.inputInfo.email;
             $scope.loginInfo.password = $scope.inputInfo.password;
 
             $q.when(DataRequestService.loginPost('auth/sign_in', $scope.loginInfo)).then((response) => {
-                console.log(response);
+
 
                 $scope.inputInfo.nickname = response.data.data.nickname;
                 $scope.inputInfo.id = response.data.data.id;
                 $scope.inputInfo.image = response.data.data.image;
 
-                console.log('logged in, set info to', $scope.inputInfo);
 
                 $scope.setInfo($scope.inputInfo);
                 $scope.inputInfo = $scope.getInfo();
@@ -121,7 +125,7 @@
 
 
             }).catch((error) => {
-                console.log(error);
+                // console.log(error);
             });
             $state.go('TriviaParent.profile');
         };
@@ -130,11 +134,6 @@
         $scope.setInfo = function(userInfo) {
             localStorageService.set('userInfo', userInfo);
         };
-
-        $scope.getInfo = function() {
-            return localStorageService.get('userInfo') || [];
-        };
-
 
     });
 
