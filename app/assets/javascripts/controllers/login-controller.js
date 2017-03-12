@@ -123,11 +123,15 @@
                 UserService.set(response.data.data);
                 $scope.currentUser = UserService.getUser();
 
+                if($scope.loginInfo.email  === $scope.inputInfo.email) {
+                    $state.go('TriviaParent.profile');
+                } else {
+                    console.log(error);
+                }
 
             }).catch((error) => {
-                // console.log(error);
+                console.log(error);
             });
-            $state.go('TriviaParent.profile');
         };
 
 
